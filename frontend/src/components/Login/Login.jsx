@@ -5,8 +5,8 @@ import userDetailsStore from "../../Store/userDetailsStore";
 import apiUrl from "../../utils/apiUrl";
 import Title from "../Title/Title";
 import "./Login.css";
+import { ThreeDots } from "react-loader-spinner";
 import { Toaster, toast } from "sonner";
-import userDetailsStore from "../../Store/userDetailsStore";
 
 function RegisterLink() {
   return (
@@ -26,21 +26,50 @@ function LoginForm() {
   const setUser = userDetailsStore((state) => state.setUser);
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: async function (data) {
+    mutationFn: async function (userDetails) {
       const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(userDetails),
       });
 
       if (response.ok === false) {
         const error = await response.json();
         throw new Error(error.message);
       }
+
+      const data = await response.json();
+      return data;
+    },
+
+    onSuccess: (data) => {
+      setUser(data);
+      redirect("/blogs");
+      toast.success("Authenticted succesfully!", {
+        duration: 4000,
+      });
     },
   });
+
+  function handleLogin(e) {
+    e.preventDefault;
+
+    if (!password) {
+      toast.error("Password cannot be empty", {
+        duration: 2000,
+      });
+    }
+
+    if (!emailOrUsername) {
+      toast.error("email cannot be empty", {
+        duration: 2000,
+      });
+    }
+
+    mutate({ emailOrUsername, password });
+  }
 
   return (
     <div className="login-form-container">
@@ -75,7 +104,23 @@ function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button className="login-btn">login</button>
+        <button
+          className="login-btn"
+          disabled={isLoading}
+          onClick={handleLogin}
+        >
+          {isLoading
+            ? /*<ThreeDots
+            visible={true}
+            height="40"
+            width="40"
+            color="yellow"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+          />*/ "logging"
+            : "login"}
+        </button>
         <RegisterLink />
       </form>
     </div>

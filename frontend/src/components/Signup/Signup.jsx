@@ -5,6 +5,7 @@ import { useMutation } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
 import apiUrl from "../../utils/apiUrl";
 import { Toaster, toast } from "sonner";
+import { ThreeDots } from "react-loader-spinner";
 
 function LoginLink() {
   return (
@@ -159,8 +160,25 @@ function SignupForm() {
             />
           </div>
         </div>
-        <button className="signup-btn" onClick={handleSubmit}>
-          submit
+        <button
+          className="signup-btn"
+          onClick={handleSubmit}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <ThreeDots
+              visible={true}
+              height="80"
+              width="80"
+              color="#4fa94d"
+              radius="9"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          ) : (
+            "signup"
+          )}
         </button>
         <LoginLink />
       </form>

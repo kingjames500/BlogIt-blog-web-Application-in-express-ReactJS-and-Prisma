@@ -4,6 +4,7 @@ import "./App.css";
 import Landingpage from "./Pages/LandingPage/Landingpage";
 import SignupPage from "./Pages/SignupPage/SignupPage";
 import Loginpage from "./Pages/LoginPage/Loginpage";
+import BlogListingPage from "./Pages/BlogListingPage/BlogListingPage";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Landingpage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<Loginpage />} />
+          <Route path="/blogs" element={<BlogListingPage />} />
         </Routes>
       </BrowserRouter>
       <Footer />
