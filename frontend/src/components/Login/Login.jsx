@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
+import userDetailsStore from "../../Store/userDetailsStore";
+import apiUrl from "../../utils/apiUrl";
 import Title from "../Title/Title";
 import "./Login.css";
 import { Toaster, toast } from "sonner";
+import userDetailsStore from "../../Store/userDetailsStore";
 
 function RegisterLink() {
   return (
@@ -17,6 +20,28 @@ function RegisterLink() {
 }
 
 function LoginForm() {
+  const [emailOrUsername, setEmailOrUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const redirect = useNavigate();
+  const setUser = userDetailsStore((state) => state.setUser);
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: async function (data) {
+      const response = await fetch(`${apiUrl}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok === false) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+    },
+  });
+
   return (
     <div className="login-form-container">
       <Toaster richColors position="top-center" expand={true} />
@@ -33,6 +58,8 @@ function LoginForm() {
             type="text"
             className="form-group-input"
             placeholder="Enter your username or email"
+            value={emailOrUsername}
+            onChange={(e) => setEmailOrUsername(e.target.value)}
           />
         </div>
 
@@ -44,6 +71,8 @@ function LoginForm() {
             type="password"
             className="form-group-input"
             placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <button className="login-btn">login</button>
