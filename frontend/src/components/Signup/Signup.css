@@ -8,7 +8,7 @@
 }
 
 .signup-form {
-  width: 45%;
+  width: 50%;
   margin: 1rem; /* Adjust margin as needed */
   padding: 1rem; /* Adjust padding for better spacing */
   background-color: var(--color-tertiary);
@@ -51,7 +51,7 @@
   border: none;
   display: block;
   outline: none;
-  width: 50%;
+  width: 80%;
   background-color: var(--color-primary);
   color: var(--color-background);
   padding: 1rem 1.5rem; /* Adjust padding for better fit */

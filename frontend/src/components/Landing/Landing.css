@@ -1,0 +1,88 @@
+.page-title {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  border: 2px solid blue;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url(../../assets/images/hero-background.jpg);
+  background-position: bottom;
+  background-size: cover;
+}
+
+.hero-text {
+  align-items: center;
+  text-align: center;
+  border: 2px solid red;
+  width: 50%;
+  padding: 2rem;
+}
+
+.hero-heading {
+  font-size: 5.4rem;
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+  text-transform: capitalize;
+}
+
+.hero-paragraph {
+  font-size: 2.3rem;
+  margin-bottom: 1rem;
+  color: var(--color-background);
+  font-style: italic;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  font-weight: bolder;
+}
+
+/* css for cta buttons
+ */
+.cta-container {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-direction: column; */
+  gap: 4rem; /* Space between the buttons */
+  padding: 2rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 2rem;
+  text-align: center;
+  border-radius: 4px;
+  text-decoration: none;
+  transition:
+    var(--color-background) 0.3s ease,
+    color 0.3s ease;
+  cursor: pointer;
+}
+
+.primary {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  border: 1px solid var(--color-primary);
+}
+
+.secondary {
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.primary:hover {
+  background-color: var(--color-secondary);
+}
+
+.secondary:hover {
+  background-color: var(--color-secondary);
+  color: #fff;
+}

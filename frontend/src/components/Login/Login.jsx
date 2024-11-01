@@ -46,9 +46,18 @@ function LoginForm() {
 
     onSuccess: (data) => {
       setUser(data);
-      redirect("/blogs");
       toast.success("Authenticted succesfully!", {
-        duration: 4000,
+        duration: 3000,
+      });
+
+      setTimeout(() => {
+        redirect("/blogs");
+      }, 100);
+    },
+
+    onError: (error) => {
+      toast.error(error.message, {
+        duration: 3000,
       });
     },
   });
@@ -56,25 +65,13 @@ function LoginForm() {
   function handleLogin(e) {
     e.preventDefault;
 
-    if (!password) {
-      toast.error("Password cannot be empty", {
-        duration: 2000,
-      });
-    }
-
-    if (!emailOrUsername) {
-      toast.error("email cannot be empty", {
-        duration: 2000,
-      });
-    }
-
     mutate({ emailOrUsername, password });
   }
 
   return (
     <div className="login-form-container">
-      <Toaster richColors position="top-center" expand={true} />
       <form className="login-form">
+        <Toaster richColors position="top-center" expand={true} />
         <div className="login-title">
           <Title subTitle="login to BlogIt" />
         </div>
@@ -118,7 +115,7 @@ function LoginForm() {
             radius="9"
             ariaLabel="three-dots-loading"
             wrapperStyle={{}}
-          />*/ "logging"
+          />*/ "please wait...."
             : "login"}
         </button>
         <RegisterLink />

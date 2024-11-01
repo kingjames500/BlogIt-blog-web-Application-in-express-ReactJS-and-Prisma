@@ -165,20 +165,19 @@ function SignupForm() {
           onClick={handleSubmit}
           disabled={isLoading}
         >
-          {isLoading ? (
-            <ThreeDots
-              visible={true}
-              height="80"
-              width="80"
-              color="#4fa94d"
-              radius="9"
-              ariaLabel="three-dots-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
-          ) : (
-            "signup"
-          )}
+          {isLoading
+            ? // <ThreeDots
+              //   visible={true}
+              //   height="80"
+              //   width="80"
+              //   color="#4fa94d"
+              //   radius="9"
+              //   ariaLabel="three-dots-loading"
+              //   wrapperStyle={{}}
+              //   wrapperClass=""
+              // />
+              "registering...."
+            : "signup"}
         </button>
         <LoginLink />
       </form>
