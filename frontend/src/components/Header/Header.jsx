@@ -20,7 +20,7 @@ function NavbarHeader() {
           </li>
           <li className="navigation-list-items">
             <Link className="links" to="/signup">
-              sign up
+              signup
             </Link>
           </li>
           <li className="navigation-list-items">

@@ -4,7 +4,7 @@
   padding: 1rem 1.5rem;
   background-color: var(--color-background);
   color: var(--color-primary);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .logo-container {
@@ -22,7 +22,7 @@
 .site-name {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 @media screen and (max-width: 41.875em) {
@@ -54,18 +54,17 @@
 
 .links {
   text-decoration: none;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: var(--color-secondary);
   text-transform: capitalize;
   transition: color 0.5s ease;
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 1.7rem;
+  font-weight: 800;
 }
 
 .links:hover {
   color: var(--color-primary);
-
-  font-weight: 580;
+  font-weight: 690;
 }
 
 @media screen and (max-width: 34.125em) {

@@ -6,6 +6,17 @@ import { useNavigate, Link } from "react-router-dom";
 import apiUrl from "../../utils/apiUrl";
 import { Toaster, toast } from "sonner";
 
+function LoginLink() {
+  return (
+    <div className="signup-link">
+      <p>Already have an account?</p>
+      <Link to="/login" className="signup-link-btn">
+        Login
+      </Link>
+    </div>
+  );
+}
+
 function SignupForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -32,15 +43,17 @@ function SignupForm() {
       console.log(response);
     },
     onSuccess: () => {
-      toast.success("registration successful", {
-        duration: 5000,
+      toast.success("User registered successfully", {
+        duration: 3000,
       });
-      redirect("/login");
+      setTimeout(() => {
+        redirect("/login");
+      }, 2050);
     },
 
     onError: (error) => {
       toast.error(error.message, {
-        duration: 5000,
+        duration: 4000,
       });
     },
   });
@@ -64,6 +77,9 @@ function SignupForm() {
     <div className="signup-form-container">
       <Toaster richColors position="top-center" expand={true} />
       <form className="signup-form">
+        <div className="signup-title">
+          <Title subTitle="register to BlogIt" />
+        </div>
         <div className="user-details">
           <div className="form-group">
             <label htmlFor="first name" className="form-group-label">
@@ -143,9 +159,10 @@ function SignupForm() {
             />
           </div>
         </div>
-        <button className="track-enrol-btn" onClick={handleSubmit}>
+        <button className="signup-btn" onClick={handleSubmit}>
           submit
         </button>
+        <LoginLink />
       </form>
     </div>
   );
@@ -154,10 +171,6 @@ function SignupForm() {
 function Signup() {
   return (
     <div className="signup-section">
-      <Title
-        mainTitle="Sign up"
-        subTitle="join the community of talented writers"
-      />
       <SignupForm />
     </div>
   );

@@ -1,7 +1,3 @@
-.signup-section {
-  margin-top: 4rem;
-}
-
 .signup-form-container {
   display: flex;
   align-items: center;
@@ -51,11 +47,11 @@
   font-weight: 500;
 }
 
-.track-enrol-btn {
+.signup-btn {
   border: none;
   display: block;
   outline: none;
-  width: 100%;
+  width: 50%;
   background-color: var(--color-primary);
   color: var(--color-background);
   padding: 1rem 1.5rem; /* Adjust padding for better fit */
@@ -64,10 +60,39 @@
   text-transform: capitalize;
   cursor: pointer;
   transition: all 0.4s;
+  margin: 0 auto;
 }
 
-.track-enrol-btn:hover {
+.signup-btn:hover {
   background-color: var(--color-background);
   color: var(--color-primary);
   border: 1px solid var(--color-primary);
+}
+
+/* register link url styling */
+
+.signup-link {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  gap: 1rem;
+}
+.signup-link p {
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+.signup-link a {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: all 0.4s;
+}
+.signup-link a:hover {
+  color: var(--color-primary);
+}
+
+/* link div styling */
+.signup-title {
+  margin-bottom: 2.5rem;
 }
