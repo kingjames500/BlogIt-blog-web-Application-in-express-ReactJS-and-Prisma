@@ -24,8 +24,8 @@ function NavbarHeader() {
             </Link>
           </li>
           <li className="navigation-list-items">
-            <Link className="links" to="/tracks">
-              tracks
+            <Link className="links" to="/login">
+              login
             </Link>
           </li>
           <li className="navigation-list-items">

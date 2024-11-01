@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import "./App.css";
 import Landingpage from "./Pages/LandingPage/Landingpage";
 import SignupPage from "./Pages/SignupPage/SignupPage";
+import Loginpage from "./Pages/LoginPage/Loginpage";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landingpage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<Loginpage />} />
         </Routes>
       </BrowserRouter>
       <Footer />
