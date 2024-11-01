@@ -1,0 +1,73 @@
+.signup-section {
+  margin-top: 4rem;
+}
+
+.signup-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(
+    --color-tertiary
+  ); /* Background color for the whole page */
+}
+
+.signup-form {
+  width: 45%;
+  margin: 1rem; /* Adjust margin as needed */
+  padding: 1rem; /* Adjust padding for better spacing */
+  background-color: var(--color-tertiary);
+  border-radius: 8px; /* Slightly rounded corners for aesthetics */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem; /* Adjusted margin for better spacing */
+  gap: 1rem;
+  flex: 1;
+}
+
+.user-details {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-group-label {
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.form-group-input {
+  padding: 1rem;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+.form-group-input::placeholder {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.track-enrol-btn {
+  border: none;
+  display: block;
+  outline: none;
+  width: 100%;
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  padding: 1rem 1.5rem; /* Adjust padding for better fit */
+  font-weight: 700;
+  font-size: inherit;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.track-enrol-btn:hover {
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}

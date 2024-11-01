@@ -1,0 +1,20 @@
+.section-title {
+  text-align: center;
+}
+
+.title_main-title {
+  letter-spacing: 2px;
+  font-size: 3rem;
+  text-shadow: 0 0 2rem currentColor;
+  color: var(--color-primary);
+  text-transform: uppercase;
+}
+
+.title_subtitle {
+  font-size: 2rem;
+  color: var(--color-secondary);
+  margin-bottom: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  font-weight: 600;
+}
