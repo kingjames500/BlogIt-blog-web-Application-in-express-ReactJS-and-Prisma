@@ -1,0 +1,18 @@
+.p-field {
+  margin-bottom: 1.5rem;
+}
+
+.p-d-block {
+  display: block;
+  width: 100%;
+}
+
+.p-mt-2 {
+  margin-top: 1rem;
+}
+
+.p-shadow-3 {
+  padding: 2rem;
+  width: 50%;
+  max-width: 800px;
+}

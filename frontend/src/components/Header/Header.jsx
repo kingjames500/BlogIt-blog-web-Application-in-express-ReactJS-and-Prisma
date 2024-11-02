@@ -43,6 +43,11 @@ function NavbarHeader() {
                 </Link>
               </li>
               <li className="navigation-list-items">
+                <Link className="links" to="/create-blog">
+                  Create Blog
+                </Link>
+              </li>
+              <li className="navigation-list-items">
                 <Link className="links" to="/profile">
                   Profile
                 </Link>
