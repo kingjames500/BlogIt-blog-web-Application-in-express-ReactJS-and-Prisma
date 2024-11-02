@@ -115,7 +115,8 @@ function LoginForm() {
           )}
         </button>
         <RegisterLink />
-      </form>cd client
+      </form>
+      cd client
     </div>
   );
 }

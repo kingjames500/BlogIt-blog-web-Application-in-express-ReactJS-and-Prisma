@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import "primeflex/primeflex.css";
 import "./App.css";
 import Landingpage from "./Pages/LandingPage/Landingpage";
 import SignupPage from "./Pages/SignupPage/SignupPage";

@@ -1,11 +1,8 @@
-import React from 'react'
-import CreateBlog from '../../components/CreateBlog/CreateBlog'
+import React from "react";
+import CreateBlog from "../../components/CreateBlog/CreateBlog";
 
 function CreateBlogPage() {
-  return (
-
-    <CreateBlog />
-  )
+  return <CreateBlog />;
 }
 
-export default CreateBlogPage
+export default CreateBlogPage;
