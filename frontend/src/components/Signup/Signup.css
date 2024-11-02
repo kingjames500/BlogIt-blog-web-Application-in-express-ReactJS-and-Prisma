@@ -2,9 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(
-    --color-tertiary
-  ); /* Background color for the whole page */
+  background-color: var(--color-tertiary);
 }
 
 .signup-form {
@@ -95,4 +93,11 @@
 /* link div styling */
 .signup-title {
   margin-bottom: 2.5rem;
+}
+
+/* loader linkss */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

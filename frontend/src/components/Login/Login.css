@@ -94,3 +94,10 @@
 .login-title {
   margin-bottom: 2.5rem;
 }
+
+/* loader-styles */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

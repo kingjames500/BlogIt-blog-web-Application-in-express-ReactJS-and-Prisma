@@ -38,8 +38,8 @@ function NavbarHeader() {
           {user ? (
             <>
               <li className="navigation-list-items">
-                <Link className="links" to="/club-events">
-                  Events
+                <Link className="links" to="/blogs">
+                  blogs
                 </Link>
               </li>
               <li className="navigation-list-items">

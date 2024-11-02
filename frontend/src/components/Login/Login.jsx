@@ -106,17 +106,13 @@ function LoginForm() {
           disabled={isLoading}
           onClick={handleLogin}
         >
-          {isLoading
-            ? /*<ThreeDots
-            visible={true}
-            height="40"
-            width="40"
-            color="yellow"
-            radius="9"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-          />*/ "please wait...."
-            : "login"}
+          {isLoading ? (
+            <div className="loader-container">
+              <ThreeDots color="#6933ff" height={16} />
+            </div>
+          ) : (
+            "Login"
+          )}
         </button>
         <RegisterLink />
       </form>

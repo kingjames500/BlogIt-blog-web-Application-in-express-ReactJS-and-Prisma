@@ -62,7 +62,9 @@ function SignupForm() {
   function handleSubmit(e) {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setFormError("passwords do not match");
+      toast.error("passwords do not match", {
+        duration: 3000,
+      });
       return;
     }
     const register = {
@@ -165,19 +167,13 @@ function SignupForm() {
           onClick={handleSubmit}
           disabled={isLoading}
         >
-          {isLoading
-            ? // <ThreeDots
-              //   visible={true}
-              //   height="80"
-              //   width="80"
-              //   color="#4fa94d"
-              //   radius="9"
-              //   ariaLabel="three-dots-loading"
-              //   wrapperStyle={{}}
-              //   wrapperClass=""
-              // />
-              "registering...."
-            : "signup"}
+          {isLoading ? (
+            <div className="loader-container">
+              <ThreeDots color="#6933ff" height={16} />
+            </div>
+          ) : (
+            "Register"
+          )}
         </button>
         <LoginLink />
       </form>

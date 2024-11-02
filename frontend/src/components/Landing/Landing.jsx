@@ -8,13 +8,11 @@ function CallToAction() {
     <div className="cta-container">
       {" "}
       <Link to="/signup" className="cta-btn primary">
-        {" "}
-        Start Writing{" "}
-      </Link>{" "}
+        Start Writing
+      </Link>
       <Link to="/signup" className="cta-btn secondary">
-        {" "}
-        Explore Stories{" "}
-      </Link>{" "}
+        Explore Stories
+      </Link>
     </div>
   );
 }
