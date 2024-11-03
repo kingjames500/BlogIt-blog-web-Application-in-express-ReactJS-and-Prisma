@@ -5,9 +5,9 @@ import { devtools, persist } from "zustand/middleware";
 function userStore(set) {
   return {
     user: null,
-    setUser: function (userDetailsObject) {
+    setUser: function (userObj) {
       set((_set) => {
-        return { user: userDetailsObject };
+        return { user: userObj };
       });
     },
     logout: function () {
@@ -19,7 +19,7 @@ function userStore(set) {
 }
 
 const userDetailsStore = create(
-  devtools(persist(userStore, { name: "user-details" })),
+  devtools(persist(userStore, { name: "users" })),
 );
 
 export default userDetailsStore;

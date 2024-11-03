@@ -26,11 +26,13 @@ const CreateBlog = () => {
     mutationFn: async function (blogDetails) {
       const response = await fetch(`${apiUrl}/create-blog`, {
         method: "POST",
+        body: JSON.stringify(blogDetails),
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(blogDetails),
+        credentials: "include",
       });
+      console.log(response);
 
       if (response.ok === false) {
         const error = await response.json();
@@ -92,7 +94,7 @@ const CreateBlog = () => {
     <div className="form-container">
       <Card title="Create a Blog Post" className="p-shadow-3 custom-card">
         <Toaster position="top-center" richColors expand={true} />
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="p-field">
             <label htmlFor="title" className="p-d-block">
               Title
@@ -145,7 +147,9 @@ const CreateBlog = () => {
 
           <Button
             type="submit"
-            label="Create Blog"
+            disabled={isLoading}
+            label={isLoading ? "Creating..." : "Create Blog"}
+            onClick={handleSubmit}
             icon="pi pi-check"
             className="p-button p-mt-2"
           />

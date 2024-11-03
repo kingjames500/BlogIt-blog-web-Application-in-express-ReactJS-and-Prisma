@@ -25,27 +25,27 @@ function LoginForm() {
   const redirect = useNavigate();
   const setUser = userDetailsStore((state) => state.setUser);
 
-  const { mutate, isLoading } = useMutation({
-    mutationFn: async function (userDetails) {
+  const { mutate, isLoading} = useMutation({
+    mutationFn: async function (userObj) {
       const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",
+        body: JSON.stringify(userObj),
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userDetails),
+        credentials: "include",
       });
 
       if (response.ok === false) {
         const error = await response.json();
         throw new Error(error.message);
       }
-
       const data = await response.json();
       return data;
     },
 
-    onSuccess: (data) => {
-      setUser(data);
+    onSuccess: (user) => {
+      setUser(user);
       toast.success("Authenticted succesfully!", {
         duration: 3000,
       });
@@ -116,7 +116,6 @@ function LoginForm() {
         </button>
         <RegisterLink />
       </form>
-      cd client
     </div>
   );
 }
