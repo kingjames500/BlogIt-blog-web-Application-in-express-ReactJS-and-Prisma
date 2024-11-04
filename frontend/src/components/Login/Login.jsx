@@ -25,7 +25,7 @@ function LoginForm() {
   const redirect = useNavigate();
   const setUser = userDetailsStore((state) => state.setUser);
 
-  const { mutate, isLoading} = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: async function (userObj) {
       const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",

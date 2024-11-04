@@ -52,11 +52,6 @@ function NavbarHeader() {
                   Profile
                 </Link>
               </li>
-
-              <li className="navigation-list-items">
-                <Link className="links">{user.username}</Link>
-              </li>
-
               <li className="navigation-list-items">
                 <Link href="/" className="links" onClick={handleLogout}>
                   Logout
