@@ -9,7 +9,6 @@
   align-items: center;
   justify-content: center;
   height: 90vh;
-  border: 2px solid blue;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
     url(../../assets/images/hero-background.jpg);
   background-position: bottom;
@@ -19,7 +18,6 @@
 .hero-text {
   align-items: center;
   text-align: center;
-  border: 2px solid red;
   width: 50%;
   padding: 2rem;
 }

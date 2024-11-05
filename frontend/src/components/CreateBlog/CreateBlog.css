@@ -5,13 +5,12 @@
   align-items: center;
   background-color: var(--color-background);
   padding: 2rem;
-  border: 2px solid red;
   margin-top: 3rem;
 }
 
 /* Card styling similar to .login-form */
 .custom-card {
-  width: 50%;
+  width: 55%;
   padding: 2rem;
   background-color: var(--color-tertiary);
   border-radius: 8px;

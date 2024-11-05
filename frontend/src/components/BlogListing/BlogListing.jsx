@@ -2,6 +2,8 @@ import React from "react";
 import { useQuery } from "react-query";
 import apiUrl from "../../utils/apiUrl";
 import "./BlogListing.css";
+import defaultUserAvatar from "../../assets/images/default user avatar.png";
+import { Link, useNavigate } from "react-router-dom";
 
 function ArticleCard({
   authorAvatar,
@@ -9,7 +11,11 @@ function ArticleCard({
   blogTitle,
   blogExcept,
   blogImageUrl,
+  createdAt,
+  updatedAt,
+  id,
 }) {
+  // Function to limit the excerpt to 20 words on the blog listing page
   const getExcerpt = (text, wordLimit) => {
     const words = text.split(" ");
     if (words.length > wordLimit) {
@@ -18,27 +24,46 @@ function ArticleCard({
     return text;
   };
   const limitedExcerpt = getExcerpt(blogExcept, 20);
+  const limitedTitle = getExcerpt(blogTitle, 9);
+  const avatar = authorAvatar ? authorAvatar : defaultUserAvatar;
+
+  function formatDate(dateString) {
+    const options = { day: "2-digit", month: "short", year: "numeric" };
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", options);
+  }
+  const formattedUpdatedAt = formatDate(updatedAt);
+  const formattedCreatedAt = formatDate(createdAt);
+
+  // handle submit button to redirect to the blog details page using the blog id
+  const navigate = useNavigate();
+  const handleNavigateToFullBlog = () => {
+    if (!id) return;
+    navigate(`/blog/${id}`);
+  };
 
   return (
     <div className="article-card">
       <div className="author-info">
-        <img src={authorAvatar} alt={authorName} className="author-image" />
+        <img src={avatar} alt={authorName} className="author-image" />
         <div className="author-name">{authorName}</div>
       </div>
 
       <div className="content-section">
         <div className="text-content">
-          <h2 className="article-title">{blogTitle}</h2>
+          <h2 className="article-title">{limitedTitle}</h2>
           <p className="article-subtitle">⚡{limitedExcerpt}⚡</p>
         </div>
         <img src={blogImageUrl} alt="Article" className="article-image" />
       </div>
 
       <div className="article-footer">
-        <span className="date">Aug 1, 2023</span>
-        <span className="views">👁️ 50</span>
+        <span className="date">posted on {formattedCreatedAt}</span>
+        <span className="views">updated on {formattedUpdatedAt}</span>
       </div>
-      <button className="read-more-button">Read More</button>
+      <button className="read-more-button" onClick={handleNavigateToFullBlog}>
+        Read More
+      </button>
     </div>
   );
 }
@@ -61,7 +86,7 @@ function BlogListing() {
   });
 
   if (isLoading) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading"></div>;
   }
 
   if (isError) {
@@ -77,6 +102,9 @@ function BlogListing() {
           blogTitle={blog.title}
           blogExcept={blog.excerpt}
           blogImageUrl={blog.imageUrl}
+          createdAt={blog.createdAt}
+          updatedAt={blog.updatedAt}
+          id={blog.id}
         />
       ))}
     </div>

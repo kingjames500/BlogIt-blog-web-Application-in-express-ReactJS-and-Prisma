@@ -1,0 +1,104 @@
+/* .feed-card {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.p-card {
+  width: 600px; 
+  border: 1px solid #d1d5da;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-card-title,
+.p-card-subtitle {
+  color: var(--color-primary);
+}
+
+.card-content p {
+  margin: 1rem 0;
+  color: #333;
+  flex: 1;
+}
+
+.btn-card-holder{
+margin-top: 2rem;
+ display: flex;
+ border: 2px solid black;
+
+ justify-content: space-between;
+}
+
+.multiple-button-cards{
+border: 2px solid blue;
+
+} */
+
+.feed-card {
+  display: flex;
+  justify-content: center; /* Center the card horizontally */
+  width: 100%; /* Full width */
+}
+
+.p-card {
+  width: 600px; /* Set a fixed width */
+  border: 1px solid #d1d5da;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow for aesthetics */
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-card-title,
+.p-card-subtitle {
+  color: var(--color-primary);
+}
+
+.card-content p {
+  margin: 1rem 0;
+  color: #333;
+  flex: 1;
+}
+
+.btn-card-holder {
+  display: flex;
+  justify-content: center; /* Center the button group */
+  margin-top: 1rem;
+}
+
+.multiple-button-cards {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+.btn-update,
+.btn-delete {
+  font-size: 14px; /* Adjust font size */
+  padding: 0.5rem 1rem; /* Adjust padding */
+}
+
+.btn-update {
+  background-color: var(--color-info);
+  border-color: var(--color-info);
+}
+
+.btn-delete {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.feed-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}

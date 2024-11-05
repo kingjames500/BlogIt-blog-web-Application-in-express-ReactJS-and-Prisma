@@ -3,9 +3,10 @@ import { useMutation } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
 import userDetailsStore from "../../Store/userDetailsStore";
 import apiUrl from "../../utils/apiUrl";
+import eventDatesOnToast from "../../utils/eventsDate";
 import Title from "../Title/Title";
 import "./Login.css";
-import { ThreeDots } from "react-loader-spinner";
+import { ProgressSpinner } from "primereact/progressspinner";
 import { Toaster, toast } from "sonner";
 
 function RegisterLink() {
@@ -46,7 +47,8 @@ function LoginForm() {
 
     onSuccess: (user) => {
       setUser(user);
-      toast.success("Authenticted succesfully!", {
+      toast.success("Authenticted succesfully on", {
+        description: eventDatesOnToast(),
         duration: 3000,
       });
 
@@ -57,6 +59,7 @@ function LoginForm() {
 
     onError: (error) => {
       toast.error(error.message, {
+        description: eventDatesOnToast(),
         duration: 3000,
       });
     },
@@ -108,7 +111,12 @@ function LoginForm() {
         >
           {isLoading ? (
             <div className="loader-container">
-              <ThreeDots color="#6933ff" height={16} />
+              <ProgressSpinner
+                style={{ width: "50px", height: "3rem" }}
+                strokeWidth="10"
+                fill="var(--surface-ground)"
+                animationDuration=".4s"
+              />
             </div>
           ) : (
             "Login"

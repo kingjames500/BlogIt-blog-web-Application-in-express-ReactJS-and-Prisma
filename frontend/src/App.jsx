@@ -5,7 +5,9 @@ import Landingpage from "./Pages/LandingPage/Landingpage";
 import SignupPage from "./Pages/SignupPage/SignupPage";
 import Loginpage from "./Pages/LoginPage/Loginpage";
 import BlogListingPage from "./Pages/BlogListingPage/BlogListingPage";
+import BlogsFeedPage from "./Pages/BlogsFeedPage/BlogsFeedPage";
 import CreateBlogPage from "./Pages/CreateBlogPage/CreateBlogPage";
+import FullBlogPage from "./Pages/FullBlogPage/FullBlogPage";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
@@ -21,6 +23,8 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<Loginpage />} />
           <Route path="/blogs" element={<BlogListingPage />} />
+          <Route path="/blogs-feed" element={<BlogsFeedPage />} />
+          <Route path="/blog/:id" element={<FullBlogPage />} />
           <Route path="/create-blog" element={<CreateBlogPage />} />
         </Routes>
       </BrowserRouter>

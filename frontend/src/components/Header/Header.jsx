@@ -48,29 +48,22 @@ function NavbarHeader() {
                 </Link>
               </li>
               <li className="navigation-list-items">
-                <Link className="links" to="/profile">
-                  Profile
+                <Link className="links" to="/blogs-feed">
+                  feed
                 </Link>
               </li>
               <li className="navigation-list-items">
-                <Link href="/" className="links" onClick={handleLogout}>
+                <Link to="/" className="links" onClick={handleLogout}>
                   Logout
                 </Link>
               </li>
             </>
           ) : (
-            <>
-              <li className="navigation-list-items">
-                <Link className="links" to="/signup">
-                  Signup
-                </Link>
-              </li>
-              <li className="navigation-list-items">
-                <Link className="links" to="/login">
-                  Login
-                </Link>
-              </li>
-            </>
+            <li className="navigation-list-items">
+              <Link className="links" to="/signup">
+                Signup
+              </Link>
+            </li>
           )}
         </ol>
       </nav>

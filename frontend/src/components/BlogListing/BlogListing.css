@@ -37,8 +37,8 @@
 
 .author-name {
   font-weight: bold;
-  font-size: 1.4rem;
-  color: var(--color-primary);
+  font-size: 2rem;
+  color: var(--color-secondary);
 }
 
 .content-section {
@@ -78,7 +78,7 @@
 .article-footer {
   display: flex;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: var(--color-secondary);
 }
 
