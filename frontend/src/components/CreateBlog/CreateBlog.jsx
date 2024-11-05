@@ -41,6 +41,7 @@ const CreateBlog = () => {
     },
     onSuccess: () => {
       toast.success("Blog created successfully", {
+        description: "Redirecting to blogs page...",
         duration: 5000,
       });
       setTimeout(() => {
@@ -50,6 +51,7 @@ const CreateBlog = () => {
 
     onError: (error) => {
       toast.error(error.message, {
+        description: "Please try again",
         duration: 5000,
       });
     },
@@ -87,7 +89,6 @@ const CreateBlog = () => {
     }
     const data = await response.json();
     setImageUrl(data.secure_url);
-    console.log(data.secure_url);
   };
 
   return (

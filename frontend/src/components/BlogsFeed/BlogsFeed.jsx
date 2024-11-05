@@ -2,32 +2,55 @@ import { useQuery } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
 import { ProgressSpinner } from "primereact/progressspinner";
 import apiUrl from "../../utils/apiUrl";
-import { Card } from "primereact/card";
-import { Button } from "primereact/button";
-import { ButtonGroup } from "primereact/buttongroup";
+import "primeicons/primeicons.css";
+import Errors from "../Errors/Errors";
 
 import "./BlogsFeed.css";
 
-function BlogsFeedCard({ feedTitle, feedDates, feedExcerpt }) {
+const BlogPost = ({ feedTitle, feedExcerpt, feedDate, feedAuthor }) => {
   return (
-    <div className="feed-card">
-      {" "}
-      <Card title={feedTitle} subTitle={feedExcerpt} className="p-mb-3">
-        {" "}
-        <div className="card-content">
-          {" "}
-          <p>{feedDates}</p>{" "}
+    <div className="blog-container-card">
+      <h1 className="feed-title">{feedTitle}</h1>
+      <p className="feed-excerpt">{feedExcerpt}</p>
+      <div className="blog-footer">
+        <div className="profile">
+          <div>
+            <p className="author-name-feed">
+              <i
+                className="pi pi-user"
+                style={{
+                  marginRight: "0.4rem",
+                  fontSize: "1.8rem",
+                  backgroundColor: "var(--color-tertiary)",
+                  color: "var(--color-secondary)",
+                  fontWeight: "bolder",
+                }}
+              ></i>
+              {feedAuthor}
+            </p>
+            <p className="timestamp">
+              <i
+                className="pi pi-clock"
+                style={{
+                  marginRight: "0.5rem",
+                  fontSize: "1.8rem",
+                  backgroundColor: "var(--color-tertiary)",
+                  color: "var(--color-secondary)",
+                  fontWeight: "bolder",
+                }}
+              ></i>
+              posted on {feedDate}
+            </p>
+          </div>
         </div>
-        <div className="btn-card-holder">
-          <ButtonGroup className="multiple-button-cards">
-            <Button label="Update" icon="pi pi-check" className="btn-update" />
-            <Button label="Delete" icon="pi pi-trash" className="btn-delete" />
-          </ButtonGroup>
+        <div className="buttons">
+          <button className="button edit-button">update</button>
+          <button className="button delete-button">delete</button>
         </div>
-      </Card>
+      </div>
     </div>
   );
-}
+};
 
 function BlogsFeed() {
   const { isLoading, isError, error, data } = useQuery({
@@ -50,20 +73,28 @@ function BlogsFeed() {
   return (
     <div className="feed-container">
       {isLoading ? (
-        <ProgressSpinner />
-      ) : isError ? (
-        <div>{error.message}</div>
-      ) : (
-        <div className="feed-container">
-          {data.data.map((blog, i) => (
-            <BlogsFeedCard
-              key={i}
-              feedTitle={blog.title}
-              feedDates={blog.createdAt}
-              feedExcerpt={blog.excerpt}
-            />
-          ))}
+        <div className="loading-container">
+          <ProgressSpinner />
         </div>
+      ) : isError ? (
+        <Errors error={error} />
+      ) : data.length === 0 ? (
+        <div>
+          <p>You have no blogs yet.</p>
+          <Link to="/create-blog" className="create-blog-link">
+            Create your first blog
+          </Link>
+        </div>
+      ) : (
+        data.data.map((blog) => (
+          <BlogPost
+            key={blog.id}
+            feedTitle={blog.title}
+            feedExcerpt={blog.excerpt}
+            feedDate={blog.createdAt}
+            feedAuthor={blog.user.username}
+          />
+        ))
       )}
     </div>
   );

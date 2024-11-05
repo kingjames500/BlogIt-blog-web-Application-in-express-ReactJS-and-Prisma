@@ -13,4 +13,14 @@ function eventDatesOnToast() {
   return now.toLocaleString("en-US", options);
 }
 
-export default eventDatesOnToast;
+function formatDateToShort(date) {
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+  };
+
+  return new Date(date).toLocaleDateString("en-US", options);
+}
+
+export default { eventDatesOnToast, formatDateToShort };

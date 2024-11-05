@@ -3,7 +3,6 @@ import { useMutation } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
 import userDetailsStore from "../../Store/userDetailsStore";
 import apiUrl from "../../utils/apiUrl";
-import eventDatesOnToast from "../../utils/eventsDate";
 import Title from "../Title/Title";
 import "./Login.css";
 import { ProgressSpinner } from "primereact/progressspinner";
@@ -48,7 +47,6 @@ function LoginForm() {
     onSuccess: (user) => {
       setUser(user);
       toast.success("Authenticted succesfully on", {
-        description: eventDatesOnToast(),
         duration: 3000,
       });
 
@@ -59,7 +57,6 @@ function LoginForm() {
 
     onError: (error) => {
       toast.error(error.message, {
-        description: eventDatesOnToast(),
         duration: 3000,
       });
     },

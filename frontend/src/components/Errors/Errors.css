@@ -1,0 +1,30 @@
+.error-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+
+p {
+  font-size: 3rem;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+.home-link {
+  margin-top: 1.3rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 2rem;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
