@@ -4,10 +4,12 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import apiUrl from "../../utils/apiUrl";
 import "primeicons/primeicons.css";
 import Errors from "../Errors/Errors";
+import formatDateToReadable from "../../utils/eventsDate";
 
 import "./BlogsFeed.css";
 
 const BlogPost = ({ feedTitle, feedExcerpt, feedDate, feedAuthor }) => {
+  const publishedDate = formatDateToReadable(feedDate);
   return (
     <div className="blog-container-card">
       <h1 className="feed-title">{feedTitle}</h1>
@@ -39,7 +41,7 @@ const BlogPost = ({ feedTitle, feedExcerpt, feedDate, feedAuthor }) => {
                   fontWeight: "bolder",
                 }}
               ></i>
-              posted on {feedDate}
+              posted on {publishedDate}
             </p>
           </div>
         </div>

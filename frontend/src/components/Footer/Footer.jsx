@@ -6,7 +6,9 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <p>&copy; {new Date().getFullYear()} Your Name. All rights reserved.</p>
+        <p>
+          &copy; {new Date().getFullYear()} kingjames👑. All rights reserved.
+        </p>
 
         <div className="footer-links">
           <a href="mailto:your.email@example.com" className="footer-link">
