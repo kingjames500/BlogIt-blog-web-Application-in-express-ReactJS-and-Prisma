@@ -107,10 +107,11 @@
 
 /* no blog container */
 .no-blogs-container {
-  background-color: #f9f9f9; /* Light grey background */
-  border: 1px solid #ddd; /* Light border */
+  background-color: var(--color-tertiary);
+  border: 1px solid var(--color-background); /* Light border */
   padding: 20px;
-  margin: 20px auto;
+  margin-top: 14rem;
+  margin-left: 8rem;
   width: 80%;
   height: 100%;
   text-align: center;
@@ -123,7 +124,7 @@
 }
 
 .no-blogs-container p {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   color: var(--color-secondary);
   margin-bottom: 1rem;
 }
@@ -131,7 +132,7 @@
 .create-blog-link {
   display: inline-block;
   padding: 10px 15px;
-  color: white;
+  color: var(--color-background);
   background-color: var(--color-primary); /* Use primary color for the button */
   border-radius: 5px; /* Rounded corners */
   text-decoration: none; /* Remove underline */
@@ -139,6 +140,6 @@
 }
 
 .create-blog-link:hover {
-  background-color: var(--color-primary-dark); /* Slightly darker on hover */
-  text-decoration: underline; /* Underline on hover */
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
 }

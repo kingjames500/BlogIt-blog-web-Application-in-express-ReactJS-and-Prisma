@@ -1,6 +1,7 @@
-import { useQuery } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
 import { ProgressSpinner } from "primereact/progressspinner";
+import { Toaster, toast } from "sonner";
 import apiUrl from "../../utils/apiUrl";
 import "primeicons/primeicons.css";
 import Errors from "../Errors/Errors";
@@ -8,7 +9,15 @@ import formatDateToReadable from "../../utils/eventsDate";
 
 import "./BlogsFeed.css";
 
-const BlogPost = ({ feedTitle, feedExcerpt, feedDate, feedAuthor }) => {
+const BlogPost = ({
+  id,
+  feedTitle,
+  feedExcerpt,
+  feedDate,
+  feedAuthor,
+  onDelete,
+  redirectToUpdate,
+}) => {
   const publishedDate = formatDateToReadable(feedDate);
   return (
     <div className="blog-container-card">
@@ -46,8 +55,15 @@ const BlogPost = ({ feedTitle, feedExcerpt, feedDate, feedAuthor }) => {
           </div>
         </div>
         <div className="buttons">
-          <button className="button edit-button">update</button>
-          <button className="button delete-button">delete</button>
+          <button
+            className="button edit-button"
+            onClick={() => redirectToUpdate(id)}
+          >
+            update
+          </button>
+          <button className="button delete-button" onClick={() => onDelete(id)}>
+            delete
+          </button>
         </div>
       </div>
     </div>
@@ -55,6 +71,36 @@ const BlogPost = ({ feedTitle, feedExcerpt, feedDate, feedAuthor }) => {
 };
 
 function BlogsFeed() {
+  const queryClient = useQueryClient();
+
+  const redirect = useNavigate();
+
+  // function for deleting a blog
+  const deleteMutation = useMutation({
+    mutationFn: async (id) => {
+      const response = await fetch(`${apiUrl}/blog/author/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (response.ok === false) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+
+      const data = await response.json();
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["authorBlogs"]);
+      toast.info("Blog deleted successfully", { duration: 5000 });
+    },
+    onError: (error) => {
+      toast.error(error.message, { duration: 5000 });
+    },
+  });
+
+  // fetching the blogs for a single user
   const { isLoading, isError, error, data } = useQuery({
     queryKey: ["authorBlogs"],
     queryFn: async () => {
@@ -72,11 +118,16 @@ function BlogsFeed() {
     },
   });
 
+  // function for updating a blog so that it can be reloaded
+  const handleUpdateBlogRedirect = (id) => {
+    if (!id) return;
+    redirect(`/update-blog/${id}`);
+  };
+
   if (isLoading) {
     return (
       <div className="loading-container">
-        {" "}
-        <ProgressSpinner />{" "}
+        <ProgressSpinner />
       </div>
     );
   }
@@ -99,15 +150,18 @@ function BlogsFeed() {
   }
   return (
     <div className="feed-container">
-      {" "}
+      <Toaster position="top-center" richColors expand={true} />{" "}
       {data &&
-        data.data.map((blog) => (
+        data.data.map((blog, i) => (
           <BlogPost
-            key={blog.id}
+            key={i}
             feedTitle={blog.title}
             feedExcerpt={blog.excerpt}
             feedDate={blog.createdAt}
             feedAuthor={blog.user.username}
+            onDelete={deleteMutation.mutate}
+            redirectToUpdate={handleUpdateBlogRedirect}
+            id={blog.id}
           />
         ))}{" "}
     </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { Editor } from "primereact/editor";
@@ -8,75 +8,60 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "quill/dist/quill.snow.css";
-import "./CreateBlog.css";
+import "../CreateBlog/CreateBlog.css";
 import apiUrl from "../../utils/apiUrl";
 import { Toaster, toast } from "sonner";
-import { useNavigate } from "react-router-dom";
-import imageUploadToCloudinary from "../../utils/ImageUpload/imageUploadToCloudinary";
+import { useNavigate, useParams } from "react-router-dom";
 
-const CreateBlog = () => {
+import Errors from "../Errors/Errors";
+
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
+
+function UpdateBlog() {
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
+  const { blogId } = useParams();
   const redirect = useNavigate();
 
-  const { mutate, isLoading, isError, error } = useMutation({
-    mutationFn: async function (blogDetails) {
-      const response = await fetch(`${apiUrl}/create-blog`, {
-        method: "POST",
-        body: JSON.stringify(blogDetails),
-        headers: {
-          "Content-Type": "application/json",
-        },
+  const { isLoading, isError, error } = useQuery({
+    queryKey: ["blog", blogId],
+    queryFn: async () => {
+      const response = await fetch(`${apiUrl}/blog/${blogId}`, {
         credentials: "include",
       });
-      console.log(response);
 
       if (response.ok === false) {
         const error = await response.json();
         throw new Error(error.message);
       }
-    },
-    onSuccess: () => {
-      toast.success("Blog created successfully", {
-        description: "Redirecting to blogs page...",
-        duration: 5000,
-      });
-      setTimeout(() => {
-        redirect("/blogs");
-      }, 1500);
+      console.log(response);
+      const data = await response.json();
+      return data;
     },
 
-    onError: (error) => {
-      toast.error(error.message, {
-        description: "Please try again",
-        duration: 5000,
-      });
+    onSuccess: (data) => {
+      setContent(data.content);
+      setExcerpt(data.excerpt);
+      setTitle(data.title);
     },
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newBlog = {
-      title,
-      excerpt,
-      content,
-      imageUrl,
-    };
-    mutate(newBlog);
-  };
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
 
-  const handleImageUpload = async (files) => {
-    if (files && files[0]) {
-      const url = await imageUploadToCloudinary(files[0]); // Upload image and get URL
-      if (url) {
-        setImageUrl(url); // Set the URL in state if upload is successful
-      }
-    }
-  };
-
+  if (error) {
+    return (
+      <Errors
+        error={error}
+        linkPath="/blogs-feed"
+        linkText=" return back to blog's feed"
+      />
+    );
+  }
   return (
     <div className="form-container">
       <Card title="Create a Blog Post" className="p-shadow-3 custom-card">
@@ -115,7 +100,7 @@ const CreateBlog = () => {
             <input
               type="file"
               id="image"
-              onChange={(e) => handleImageUpload(e.target.files)}
+              onChange={(e) => uploadImage(e.target.files)}
               className="p-d-block"
             />
           </div>
@@ -135,8 +120,7 @@ const CreateBlog = () => {
           <Button
             type="submit"
             disabled={isLoading}
-            label={isLoading ? "Creating..." : "Create Blog"}
-            onClick={handleSubmit}
+            label={isLoading ? "Updating Blog" : "Update Blog"}
             icon="pi pi-check"
             className="p-button p-mt-2"
           />
@@ -144,6 +128,6 @@ const CreateBlog = () => {
       </Card>
     </div>
   );
-};
+}
 
-export default CreateBlog;
+export default UpdateBlog;
