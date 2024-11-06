@@ -2,7 +2,10 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import apiUrl from "../../utils/apiUrl";
+import formatDateToReadable from "../../utils/eventsDate";
+import defaultUserAvatar from "../../assets/images/default user avatar.png";
 import "./FullBlogFeed.css";
+
 function FullBlogFeed() {
   const { id } = useParams();
 
@@ -30,61 +33,34 @@ function FullBlogFeed() {
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
-  // return (
-  //   <div>
-  //     <img src={data.imageUrl} alt="" />
-  //     <h2>{data.title}</h2>
-  //     <p>
-  //       By: {data.user.firstName} {data.user.lastName}
-  //     </p>
-  //     <p>{data.excerpt}</p>
-  //     <div dangerouslySetInnerHTML={{ __html: data.content }}></div>
-  //   </div>
-  // );
-
+  const avatar = data.user.avatar ? data.user.avatar : defaultUserAvatar;
   return (
     <div className="full-blog-container">
       <div className="blog-header"></div>
-      <h1 className="fullblog-title">This is John Doe's first post edited!</h1>
+      <h1 className="fullblog-title">{data.title}</h1>
       <div className="fullblog-profile">
         <div className="fullblog-profile-image">
-          <img src="https://via.placeholder.com/40" alt="profile" />
+          <img src={avatar} alt="profile" />
         </div>
         <div>
-          <p className="fullblog-author"> John Doe</p>
-          <p className="fullblog-timestamp">updated on</p>
+          <p className="fullblog-author">
+            by {data.user.firstName} {data.user.lastName}
+          </p>
+          <p className="fullblog-timestamp">
+            updated on {formatDateToReadable(data.updatedAt)}
+          </p>
         </div>
       </div>
       <div className="blog-image">
-        <img src="https://via.placeholder.com/300" alt="Blog" />
+        <img src={data.imageUrl} alt="Blog" />
       </div>
-      <p className="fullblog-excerpt">
-        There are many variations of passages of Lorem Ipsum available, but the
-        majority have suffered alteration in some form, by injected humour, or
-        randomised words which don't look even slightly believable. If you are
-        going to use a passage of Lorem Ipsum, you need to be sure there isn't
-        anything embarrassing hidden in the middle of text. All the Lorem Ipsum
-        generators on the Internet tend to repeat predefined chunks as
-        necessary, making this the first true generator on the Internet. It uses
-        a dictionary of over 200 Latin words, combined with a handful of model
-        sentence structures, to generate Lorem Ipsum which looks reasonable. The
-        generated Lorem Ipsum is therefore always free from repetition, injected
-        humour, or non-characteristic words etc.
-      </p>
-
-      <p className="fullblog-content">
-        There are many variations of passages of Lorem Ipsum available, but the
-        majority have suffered alteration in some form, by injected humour, or
-        randomised words which don't look even slightly believable. If you are
-        going to use a passage of Lorem Ipsum, you need to be sure there isn't
-        anything embarrassing hidden in the middle of text. All the Lorem Ipsum
-        generators on the Internet tend to repeat predefined chunks as
-        necessary, making this the first true generator on the Internet. It uses
-        a dictionary of over 200 Latin words, combined with a handful of model
-        sentence structures, to generate Lorem Ipsum which looks reasonable. The
-        generated Lorem Ipsum is therefore always free from repetition, injected
-        humour, or non-characteristic words etc.
-      </p>
+      <p className="fullblog-excerpt">{data.excerpt}</p>
+      <div className="blog-data-content">
+        <div
+          className="blog-content"
+          dangerouslySetInnerHTML={{ __html: data.content }}
+        ></div>
+      </div>
     </div>
   );
 }

@@ -12,14 +12,14 @@
 }
 
 .feed-title {
-  font-size: 2.8rem;
+  font-size: 2rem;
   font-weight: 560;
   margin-bottom: 1rem;
   color: var(--color-feed-title);
 }
 
 .feed-excerpt {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   letter-spacing: 0.5px;
   line-height: 1.4;
   color: var(--color-secondary);
@@ -99,5 +99,46 @@
 .feed-container {
   display: flex;
   flex-wrap: wrap;
-  border: 2px solid blue;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid red;
+}
+
+/* no blog container */
+.no-blogs-container {
+  background-color: #f9f9f9; /* Light grey background */
+  border: 1px solid #ddd; /* Light border */
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
+  height: 100%;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-blogs-container p {
+  font-size: 1.2rem;
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+}
+
+.create-blog-link {
+  display: inline-block;
+  padding: 10px 15px;
+  color: white;
+  background-color: var(--color-primary); /* Use primary color for the button */
+  border-radius: 5px; /* Rounded corners */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold;
+}
+
+.create-blog-link:hover {
+  background-color: var(--color-primary-dark); /* Slightly darker on hover */
+  text-decoration: underline; /* Underline on hover */
 }

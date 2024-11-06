@@ -60,8 +60,8 @@ function NavbarHeader() {
             </>
           ) : (
             <li className="navigation-list-items">
-              <Link className="links" to="/signup">
-                Signup
+              <Link className="links" to="/login">
+                login
               </Link>
             </li>
           )}

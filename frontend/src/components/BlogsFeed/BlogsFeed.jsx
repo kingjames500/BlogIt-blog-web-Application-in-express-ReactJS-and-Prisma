@@ -72,22 +72,35 @@ function BlogsFeed() {
     },
   });
 
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        {" "}
+        <ProgressSpinner />{" "}
+      </div>
+    );
+  }
+  if (isError) {
+    return (
+      <Errors error={error} linkPath="/blogs" linkText="read existing blogs" />
+    );
+  }
+  if (data && data.data.length === 0) {
+    return (
+      <div className="no-blogs-container">
+        {" "}
+        <p>You have no blogs yet.</p>{" "}
+        <Link to="/create-blog" className="create-blog-link">
+          {" "}
+          Create your first blog{" "}
+        </Link>{" "}
+      </div>
+    );
+  }
   return (
     <div className="feed-container">
-      {isLoading ? (
-        <div className="loading-container">
-          <ProgressSpinner />
-        </div>
-      ) : isError ? (
-        <Errors error={error} />
-      ) : data.length === 0 ? (
-        <div>
-          <p>You have no blogs yet.</p>
-          <Link to="/create-blog" className="create-blog-link">
-            Create your first blog
-          </Link>
-        </div>
-      ) : (
+      {" "}
+      {data &&
         data.data.map((blog) => (
           <BlogPost
             key={blog.id}
@@ -96,8 +109,7 @@ function BlogsFeed() {
             feedDate={blog.createdAt}
             feedAuthor={blog.user.username}
           />
-        ))
-      )}
+        ))}{" "}
     </div>
   );
 }
