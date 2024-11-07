@@ -53,6 +53,11 @@ function NavbarHeader() {
                 </Link>
               </li>
               <li className="navigation-list-items">
+                <Link className="links" to="/user/profile">
+                  profile
+                </Link>
+              </li>
+              <li className="navigation-list-items">
                 <Link to="/" className="links" onClick={handleLogout}>
                   Logout
                 </Link>

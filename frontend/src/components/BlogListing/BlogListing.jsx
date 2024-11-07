@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import apiUrl from "../../utils/apiUrl";
 import "./BlogListing.css";
 import defaultUserAvatar from "../../assets/images/default user avatar.png";
+import formatDateToReadable from "../../utils/eventsDate.js";
 import { useNavigate } from "react-router-dom";
 
 function ArticleCard({
@@ -26,14 +27,8 @@ function ArticleCard({
   const limitedExcerpt = getExcerpt(blogExcept, 20);
   const limitedTitle = getExcerpt(blogTitle, 9);
   const avatar = authorAvatar ? authorAvatar : defaultUserAvatar;
-
-  function formatDate(dateString) {
-    const options = { day: "2-digit", month: "short", year: "numeric" };
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", options);
-  }
-  const formattedUpdatedAt = formatDate(updatedAt);
-  const formattedCreatedAt = formatDate(createdAt);
+  const formattedCreatedAt = formatDateToReadable(createdAt);
+  const formattedUpdatedAt = formatDateToReadable(updatedAt);
 
   // handle submit button to redirect to the blog details page using the blog id
   const navigate = useNavigate();
@@ -94,7 +89,7 @@ function BlogListing() {
   }
   return (
     <div className="blog-container">
-      {data.data.map((blog) => (
+      {data.map((blog) => (
         <ArticleCard
           key={blog.id}
           authorAvatar={blog.user.avatar}

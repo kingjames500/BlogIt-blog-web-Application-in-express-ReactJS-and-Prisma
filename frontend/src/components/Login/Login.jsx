@@ -25,7 +25,7 @@ function LoginForm() {
   const redirect = useNavigate();
   const setUser = userDetailsStore((state) => state.setUser);
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isLoading, isError, error } = useMutation({
     mutationFn: async function (userObj) {
       const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",
@@ -52,11 +52,11 @@ function LoginForm() {
 
       setTimeout(() => {
         redirect("/blogs");
-      }, 100);
+      }, 1000);
     },
 
     onError: (error) => {
-      toast.error(error.message, {
+      return toast.error(error.message, {
         duration: 3000,
       });
     },
@@ -71,7 +71,7 @@ function LoginForm() {
   return (
     <div className="login-form-container">
       <form className="login-form">
-        <Toaster richColors position="top-center" expand={true} />
+        <Toaster richColors position="top-center" expand={false} />
         <div className="login-title">
           <Title subTitle="login to BlogIt" />
         </div>

@@ -25,7 +25,7 @@ function UpdateBlog() {
   const { blogId } = useParams();
   const redirect = useNavigate();
 
-  const { isLoading, isError, error, data } = useQuery({
+  const { isLoading, isError, error, refetch } = useQuery({
     queryKey: ["blog", blogId],
     queryFn: async () => {
       const response = await fetch(`${apiUrl}/blog/${blogId}`, {
@@ -43,9 +43,15 @@ function UpdateBlog() {
     onSuccess: (data) => {
       setTitle(data.title);
       setExcerpt(data.excerpt);
-      setImageUrl(data.imageUrl);
       setContent(data.content);
     },
+
+    onError: (error) => {
+      toast.error(error.message, {
+        duration: 2000,
+      });
+    },
+    enabled: false,
   });
 
   //mutate function for updating the blogs
@@ -70,14 +76,14 @@ function UpdateBlog() {
       return data;
     },
 
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Blog Updated Successfully", {
         duration: 2000,
       });
 
       setTimeout(() => {
         redirect(`/blog/${blogId}`);
-      }, 3000);
+      }, 1000);
     },
 
     onError: (error) => {
@@ -87,7 +93,9 @@ function UpdateBlog() {
     },
   });
 
-  const handleImageUpload = async (files) => {
+  const handleImageUpload = async (e) => {
+    e.preventDefault();
+    const files = e.target.files;
     if (files && files[0]) {
       const imageCloudUrl = await imageUploadToCloudinary(files[0]);
 
@@ -98,10 +106,19 @@ function UpdateBlog() {
   };
 
   useEffect(() => {
-    if (title === "someValue") {
-      mutate({ title, excerpt, content, imageUrl });
-    }
-  }, [title, excerpt, content, imageUrl]);
+    refetch();
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const updatedBlogObj = {
+      title,
+      excerpt,
+      content,
+      imageUrl,
+    };
+    mutate(updatedBlogObj);
+  };
 
   if (isLoading || progressLoading) {
     return <LoadingAnimation />;
@@ -154,7 +171,7 @@ function UpdateBlog() {
             <input
               type="file"
               id="image"
-              onChange={(e) => handleImageUpload(e.target.files)}
+              onChange={handleImageUpload}
               className="p-d-block"
             />
           </div>
@@ -173,6 +190,7 @@ function UpdateBlog() {
 
           <Button
             type="submit"
+            onClick={handleSubmit}
             disabled={progressLoading}
             label={progressLoading ? "Updating Blog" : "Update Blog"}
             icon="pi pi-check"
