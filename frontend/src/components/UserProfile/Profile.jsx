@@ -1,10 +1,7 @@
-
 import PersonalInfoUpdate from "./PersonalProfile/PersonalInfoUpdate";
 
 function ProfileDisplay() {
-  return (
-        <PersonalInfoUpdate/>
-  )
+  return <PersonalInfoUpdate />;
 }
 
-export default ProfileDisplay
+export default ProfileDisplay;

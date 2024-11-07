@@ -31,7 +31,7 @@ function App() {
               <Route path="/blog/:id" element={<FullBlogPage />} />
               <Route path="/create-blog" element={<CreateBlogPage />} />
               <Route path="/update-blog/:blogId" element={<UpdateBlogPage />} />
-              <Route path="/profile-page" element={<ProfilePage />} />
+              <Route path="/user/profile" element={<ProfilePage />} />
             </Routes>
           </main>
           <Footer />

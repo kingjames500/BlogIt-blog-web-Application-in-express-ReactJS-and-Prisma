@@ -174,7 +174,6 @@ function UpdateBlog() {
           <Button
             type="submit"
             disabled={progressLoading}
-           
             label={progressLoading ? "Updating Blog" : "Update Blog"}
             icon="pi pi-check"
             className="p-button p-mt-2"
