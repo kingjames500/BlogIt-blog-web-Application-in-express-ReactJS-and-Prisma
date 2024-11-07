@@ -1,38 +1,98 @@
 import React, { useState } from "react";
 import "./UserProfileCard.css";
+import imageUploadToCloudinary from "../../../utils/ImageUpload/imageUploadToCloudinary";
+import { useMutation } from "react-query";
+import apiUrl from "../../../utils/apiUrl";
+import { ProgressSpinner } from "primereact/progressspinner";
+import Errors from "../../Errors/Errors";
+import { Toaster, toast } from "sonner";
 
 function UserProfileCard() {
-  const [avatar, setAvatar] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(null);
-  const [phone, setPhone] = useState("");
+  const [phoneNumber, setPhone] = useState("");
   const [bio, setBio] = useState("");
   const [status, setStatus] = useState("");
   const [occupation, setOccupation] = useState("");
   const [secondaryEmail, setSecondaryEmail] = useState("");
 
-  const handleAvatarChange = (e) => {
+  const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatarPreview(reader.result);
+      reader.onloadend = async () => {
+        const imageUrl = await imageUploadToCloudinary(file);
+        setAvatarPreview(imageUrl);
       };
       reader.readAsDataURL(file);
-      setAvatar(file);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({
-      avatar,
-      phone,
+
+    const userProfile = {
+      profileImageUrl: avatarPreview,
+      phoneNumber,
       bio,
       status,
       occupation,
       secondaryEmail,
-    });
+    };
+
+    mutate(userProfile);
   };
+
+  // mutate function for creating user profile
+  const { mutate, isLoading, isError, error } = useMutation({
+    mutationFn: async (useProfileObj) => {
+      const response = await fetch(`${apiUrl}/user/create/profile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(useProfileObj),
+        credentials: "include",
+      });
+      console.log(response);
+
+      if (response.ok === false) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+
+      const data = await response.json();
+      return data;
+    },
+
+    onSuccess: () => {
+      toast.success("Profile created successfully", {
+        duration: 5000,
+      });
+    },
+
+    onError: (error) => {
+      toast.error(error.message, {
+        duration: 5000,
+      });
+    },
+  });
+
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <ProgressSpinner />
+      </div>
+    );
+  }
+  if (isError) {
+    return (
+      <Errors
+        error={error.message}
+        linkPath="/login"
+        linkText="there was a problem while creating your profile"
+      />
+    );
+  }
 
   return (
     <div className="profile-container">
@@ -63,7 +123,7 @@ function UserProfileCard() {
             <input
               type="text"
               id="phone"
-              value={phone}
+              value={phoneNumber}
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
@@ -108,8 +168,13 @@ function UserProfileCard() {
             />
           </div>
 
-          <button type="submit" className="save-button">
-            Save
+          <button
+            type="submit"
+            className="save-button"
+            disabled={isLoading}
+            onClick={handleSubmit}
+          >
+            {isLoading ? "Creating profile..." : "Create Profile"}
           </button>
         </form>
       </div>

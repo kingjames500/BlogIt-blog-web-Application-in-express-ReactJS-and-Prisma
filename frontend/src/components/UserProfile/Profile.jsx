@@ -6,9 +6,9 @@ import "./Profile.css";
 function ProfileDisplay() {
   return (
     <div className="profile-section-display">
-      <PersonalInfoUpdate />
+      {/* <PersonalInfoUpdate /> */}
       {/* <UserProfileUpdatePassword /> */}
-      {/* <UserProfileCard /> */}
+      <UserProfileCard />
     </div>
   );
 }
