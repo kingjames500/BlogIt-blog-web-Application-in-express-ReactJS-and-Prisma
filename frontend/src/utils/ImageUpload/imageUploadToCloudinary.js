@@ -15,8 +15,6 @@ const imageUploadToCloudinary = async (file) => {
       },
     );
 
-    console.log(response);
-
     if (response.ok === false) {
       const error = await response.json();
       toast.error(error.message, { duration: 2000 });
@@ -25,7 +23,6 @@ const imageUploadToCloudinary = async (file) => {
 
     const data = await response.json();
     return data.secure_url;
-    console.log(data.secure_url);
   } catch (error) {
     toast.error("An error occurred during image upload", { duration: 2000 });
     return null;

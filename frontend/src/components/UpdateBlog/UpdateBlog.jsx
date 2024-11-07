@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "react-query";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
@@ -12,9 +12,8 @@ import "../CreateBlog/CreateBlog.css";
 import apiUrl from "../../utils/apiUrl";
 import { Toaster, toast } from "sonner";
 import { useNavigate, useParams } from "react-router-dom";
-
+import imageUploadToCloudinary from "../../utils/ImageUpload/imageUploadToCloudinary";
 import Errors from "../Errors/Errors";
-
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 function UpdateBlog() {
@@ -26,7 +25,7 @@ function UpdateBlog() {
   const { blogId } = useParams();
   const redirect = useNavigate();
 
-  const { isLoading, isError, error } = useQuery({
+  const { isLoading, isError, error, data } = useQuery({
     queryKey: ["blog", blogId],
     queryFn: async () => {
       const response = await fetch(`${apiUrl}/blog/${blogId}`, {
@@ -37,19 +36,74 @@ function UpdateBlog() {
         const error = await response.json();
         throw new Error(error.message);
       }
-      console.log(response);
       const data = await response.json();
       return data;
     },
 
     onSuccess: (data) => {
-      setContent(data.content);
-      setExcerpt(data.excerpt);
       setTitle(data.title);
+      setExcerpt(data.excerpt);
+      setImageUrl(data.imageUrl);
+      setContent(data.content);
     },
   });
 
-  if (isLoading) {
+  //mutate function for updating the blogs
+
+  const { mutate, isLoading: progressLoading } = useMutation({
+    mutationFn: async function (blogObjInformation) {
+      const response = await fetch(`${apiUrl}/blog/update/${blogId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(blogObjInformation),
+        credentials: "include",
+      });
+
+      if (response.ok === false) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+
+      const data = await response.json();
+      return data;
+    },
+
+    onSuccess: (data) => {
+      toast.success("Blog Updated Successfully", {
+        duration: 2000,
+      });
+
+      setTimeout(() => {
+        redirect(`/blog/${blogId}`);
+      }, 3000);
+    },
+
+    onError: (error) => {
+      toast.error(error.message, {
+        duration: 2000,
+      });
+    },
+  });
+
+  const handleImageUpload = async (files) => {
+    if (files && files[0]) {
+      const imageCloudUrl = await imageUploadToCloudinary(files[0]);
+
+      if (imageCloudUrl) {
+        setImageUrl(imageCloudUrl);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (title === "someValue") {
+      mutate({ title, excerpt, content, imageUrl });
+    }
+  }, [title, excerpt, content, imageUrl]);
+
+  if (isLoading || progressLoading) {
     return <LoadingAnimation />;
   }
 
@@ -100,7 +154,7 @@ function UpdateBlog() {
             <input
               type="file"
               id="image"
-              onChange={(e) => uploadImage(e.target.files)}
+              onChange={(e) => handleImageUpload(e.target.files)}
               className="p-d-block"
             />
           </div>
@@ -119,8 +173,9 @@ function UpdateBlog() {
 
           <Button
             type="submit"
-            disabled={isLoading}
-            label={isLoading ? "Updating Blog" : "Update Blog"}
+            disabled={progressLoading}
+           
+            label={progressLoading ? "Updating Blog" : "Update Blog"}
             icon="pi pi-check"
             className="p-button p-mt-2"
           />

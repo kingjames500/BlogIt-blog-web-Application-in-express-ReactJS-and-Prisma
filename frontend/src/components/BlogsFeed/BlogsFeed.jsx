@@ -133,7 +133,11 @@ function BlogsFeed() {
   }
   if (isError) {
     return (
-      <Errors error={error} linkPath="/blogs" linkText="read existing blogs" />
+      <Errors
+        error={error}
+        linkPath="/login"
+        linkText="Login to be able to view blogs"
+      />
     );
   }
   if (data && data.data.length === 0) {
