@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import apiUrl from "../../utils/apiUrl";
 import "./BlogListing.css";
 import defaultUserAvatar from "../../assets/images/default user avatar.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ArticleCard({
   authorAvatar,
