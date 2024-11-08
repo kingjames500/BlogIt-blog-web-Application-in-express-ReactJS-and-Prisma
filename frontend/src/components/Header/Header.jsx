@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import "./Header.css";
 import headerLogo from "../../assets/images/header-image.png";
 import userDetailsStore from "../../Store/userDetailsStore";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 
 function NavbarHeader() {
   const user = userDetailsStore((state) => state.user);
@@ -27,7 +27,6 @@ function NavbarHeader() {
         <img src={headerLogo} alt="logo" className="logo" />
         <span className="site-name">BlogIt</span>
       </div>
-      <Toaster richColors position="top-centre" expand={true} />
       <nav>
         <ol className="navigation-list">
           <li className="navigation-list-items">
@@ -60,6 +59,11 @@ function NavbarHeader() {
               <li className="navigation-list-items">
                 <Link to="/" className="links" onClick={handleLogout}>
                   Logout
+                </Link>
+              </li>
+              <li className="navigation-list-items">
+                <Link to="/" className="links">
+                  {user.username}
                 </Link>
               </li>
             </>

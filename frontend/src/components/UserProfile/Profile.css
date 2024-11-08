@@ -1,0 +1,13 @@
+.profile-section-display {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  /* Adjust gap size as needed */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* Distribute items evenly */
+  align-items: flex-start;
+  /* Align items at the top */
+  padding: 2rem;
+  /* Optional: Adds padding around the container */
+}

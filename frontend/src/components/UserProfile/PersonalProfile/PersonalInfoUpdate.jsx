@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Toaster, toast } from "sonner";
 import Title from "@/components/Title/Title";
-import { useEffect, useState } from "react";
 import { ProgressSpinner } from "primereact/progressspinner";
 import apiUrl from "../../../utils/apiUrl";
 import { useMutation } from "react-query";
 import userDetailsStore from "../../../Store/userDetailsStore";
+import "./PersonaInfomation.css";
 
 function PersonalInfoUpdate() {
   const [firstName, setFirstName] = useState("");
@@ -23,7 +23,7 @@ function PersonalInfoUpdate() {
     setEmail(user.email);
   }, [user]);
 
-  const { mutate, isLoading, isError, error } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: async (updatedUserObj) => {
       const response = await fetch(`${apiUrl}/user/profile`, {
         method: "PUT",
@@ -34,7 +34,7 @@ function PersonalInfoUpdate() {
         credentials: "include",
       });
 
-      if (response.ok === false) {
+      if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message);
       }
@@ -64,63 +64,63 @@ function PersonalInfoUpdate() {
   }
 
   return (
-    <div className="login-form-container">
-      <form className="login-form">
+    <div className="profile-form-container">
+      <form className="profile-form">
         <Toaster richColors position="top-center" expand={true} />
-        <div className="login-title">
+        <div className="profile-title">
           <Title mainTitle="update personal info" />
         </div>
-        <div className="form-group">
-          <label htmlFor="firstName" className="form-group-label">
-            {" "}
+        <div className="profile-form-group">
+          <label htmlFor="firstName" className="profile-form-group-label">
             first name
           </label>
           <input
             type="text"
-            className="form-group-input"
+            className="profile-form-group-input"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="last-name" className="form-group-label">
-            {" "}
+        <div className="profile-form-group">
+          <label htmlFor="lastName" className="profile-form-group-label">
             last name
           </label>
           <input
             type="text"
-            className="form-group-input"
+            className="profile-form-group-input"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="username" className="form-group-label">
-            {" "}
+        <div className="profile-form-group">
+          <label htmlFor="username" className="profile-form-group-label">
             username
           </label>
           <input
             type="text"
-            className="form-group-input"
+            className="profile-form-group-input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="email" className="form-group-label">
-            {" "}
+        <div className="profile-form-group">
+          <label htmlFor="email" className="profile-form-group-label">
             email
           </label>
           <input
             type="email"
-            className="form-group-input"
+            className="profile-form-group-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <button type="submit" onClick={handleUserSubmit} className="login-btn">
+        <button
+          type="submit"
+          onClick={handleUserSubmit}
+          className="profile-btn"
+        >
           {isLoading ? (
-            <div className="loader-container">
+            <div className="profile-loader-container">
               <ProgressSpinner
                 style={{ width: "50px", height: "3rem" }}
                 strokeWidth="10"

@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import apiUrl from "../../utils/apiUrl";
 import formatDateToReadable from "../../utils/eventsDate";
 import defaultUserAvatar from "../../assets/images/default user avatar.png";
+import { ProgressSpinner } from "primereact/progressspinner";
 import "./FullBlogFeed.css";
 
 function FullBlogFeed() {
@@ -27,13 +28,19 @@ function FullBlogFeed() {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-container">
+        <ProgressSpinner />
+      </div>
+    );
   }
 
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
-  const avatar = data.user.avatar ? data.user.avatar : defaultUserAvatar;
+  const avatar = data.user.profile.profileImageUrl
+    ? data.user.profile.profileImageUrl
+    : defaultUserAvatar;
   return (
     <div className="full-blog-container">
       <div className="blog-header"></div>

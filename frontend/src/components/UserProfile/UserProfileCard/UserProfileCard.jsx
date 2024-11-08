@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./UserProfileCard.css";
 import imageUploadToCloudinary from "../../../utils/ImageUpload/imageUploadToCloudinary";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import apiUrl from "../../../utils/apiUrl";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Errors from "../../Errors/Errors";
 import { Toaster, toast } from "sonner";
+import { useParams } from "react-router-dom";
 
 function UserProfileCard() {
   const [avatarPreview, setAvatarPreview] = useState(null);
@@ -14,6 +15,8 @@ function UserProfileCard() {
   const [status, setStatus] = useState("");
   const [occupation, setOccupation] = useState("");
   const [secondaryEmail, setSecondaryEmail] = useState("");
+
+  const { userId } = useParams();
 
   const handleAvatarChange = async (e) => {
     const file = e.target.files[0];

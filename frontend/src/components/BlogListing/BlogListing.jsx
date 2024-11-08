@@ -4,8 +4,8 @@ import apiUrl from "../../utils/apiUrl";
 import ArticleCard from "./ArticleCard";
 import "./BlogListing.css";
 import defaultUserAvatar from "../../assets/images/default user avatar.png";
-import formatDateToReadable from "../../utils/eventsDate.js";
-import { useNavigate } from "react-router-dom";
+import Errors from "../Errors/Errors";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 function BlogListing() {
   const { isLoading, isError, error, data } = useQuery({
@@ -22,15 +22,46 @@ function BlogListing() {
       const data = await response.json();
       return data;
     },
-    cacheTime: Infinity,
   });
 
   if (isLoading) {
-    return <div className="loading"></div>;
+    return (
+      <div className="loading-container">
+        <ProgressSpinner />
+      </div>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <Errors
+        error="No blogs found"
+        linkPath="/create-blog"
+        linkText="Create a blog"
+      />
+    );
   }
 
   if (isError) {
-    return <div className="error">{error.message}</div>;
+    return (
+      <Errors
+        error="there was a problem while fetching the blogs"
+        linkPath="/blogs"
+        linkText={
+          <button
+            style={{
+              backgroundColor: "transparent",
+              border: "none",
+              color: "blue",
+              cursor: "pointer",
+            }}
+            onClick={() => window.location.reload()}
+          >
+            Reload
+          </button>
+        }
+      />
+    );
   }
   return (
     <div className="blog-container">
@@ -45,7 +76,7 @@ function BlogListing() {
             authorName={`${blog.user.firstName} ${blog.user.lastName}`}
             blogTitle={blog.title}
             blogExcept={blog.excerpt}
-            blogImageUrl={blog.blogImageUrl}
+            blogImageUrl={blog.imageUrl}
             createdAt={blog.createdAt}
             updatedAt={blog.updatedAt}
             id={blog.id}

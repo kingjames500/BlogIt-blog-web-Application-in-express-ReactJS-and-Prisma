@@ -4,7 +4,7 @@ import Title from "../Title/Title";
 import { useMutation } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
 import apiUrl from "../../utils/apiUrl";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { ProgressSpinner } from "primereact/progressspinner";
 
 function LoginLink() {
@@ -78,7 +78,6 @@ function SignupForm() {
   }
   return (
     <div className="signup-form-container">
-      <Toaster richColors position="top-center" expand={true} />
       <form className="signup-form">
         <div className="signup-title">
           <Title subTitle="register to BlogIt" />

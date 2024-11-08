@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Toaster, toast } from "sonner";
 import Title from "../../Title/Title";
-import { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { ProgressSpinner } from "primereact/progressspinner";
 import apiUrl from "../../../utils/apiUrl";
 import userDetailsStore from "../../../Store/userDetailsStore";
+import "./userPasswordUpdate.css";
 
 function UserProfileUpdatePassword() {
   const redirect = useNavigate();
@@ -15,7 +15,7 @@ function UserProfileUpdatePassword() {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const logout = userDetailsStore((state) => state.logout);
 
-  const { mutate, isLoading, isError, error } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: async (password) => {
       const response = await fetch(`${apiUrl}/user/password/update`, {
         method: "PATCH",
@@ -26,9 +26,7 @@ function UserProfileUpdatePassword() {
         credentials: "include",
       });
 
-      console.log(response);
-
-      if (response.ok === false) {
+      if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message);
       }
@@ -68,59 +66,59 @@ function UserProfileUpdatePassword() {
   }
 
   return (
-    <div className="login-form-container">
-      <form className="login-form">
+    <div className="password-form-container">
+      <form className="password-form">
         <Toaster richColors position="top-center" expand={true} />
-        <div className="login-title">
+        <div className="password-title">
           <Title
             subTitle="forgot password? You can Reset it Here!"
             mainTitle="Reset Password"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="password" className="form-group-label">
+        <div className="password-form-group">
+          <label htmlFor="password" className="password-form-group-label">
             previous password
           </label>
           <input
             type="password"
-            className="form-group-input"
+            className="password-form-group-input"
             placeholder="Enter your previous password"
             value={previousPassword}
             onChange={(e) => setPreviousPassword(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="password" className="form-group-label">
+        <div className="password-form-group">
+          <label htmlFor="password" className="password-form-group-label">
             new password
           </label>
           <input
             type="password"
-            className="form-group-input"
+            className="password-form-group-input"
             placeholder="Enter your new password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password" className="form-group-label">
+        <div className="password-form-group">
+          <label htmlFor="password" className="password-form-group-label">
             confirm new password
           </label>
           <input
             type="password"
-            className="form-group-input"
+            className="password-form-group-input"
             placeholder="confirm your new password"
             value={confirmNewPassword}
             onChange={(e) => setConfirmNewPassword(e.target.value)}
           />
         </div>
         <button
-          className="login-btn"
+          className="password-btn"
           disabled={isLoading}
           onClick={handlePasswordUpdate}
         >
           {isLoading ? (
-            <div className="loader-container">
+            <div className="password-loader-container">
               <ProgressSpinner
                 style={{ width: "50px", height: "3rem" }}
                 strokeWidth="10"

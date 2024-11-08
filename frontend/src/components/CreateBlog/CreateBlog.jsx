@@ -63,12 +63,27 @@ const CreateBlog = () => {
       content,
       imageUrl,
     };
+    console.log(newBlog);
     mutate(newBlog);
   };
 
+  if (isLoading) {
+    return (
+      <div
+        className="p-d-flex p-jc-center p-ai-center"
+        style={{ height: "100vh" }}
+      >
+        <div className="p-d-flex p-flex-column p-jc-center p-ai-center">
+          <h1>Creating Blog...</h1>
+        </div>
+      </div>
+    );
+  }
+
   const handleImageUpload = async (files) => {
     if (files && files[0]) {
-      const url = await imageUploadToCloudinary(files[0]); // Upload image and get URL
+      const url = await imageUploadToCloudinary(files[0]);
+      console.log("image url", url); // Upload image and get URL
       if (url) {
         setImageUrl(url); // Set the URL in state if upload is successful
       }
