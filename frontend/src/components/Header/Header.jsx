@@ -7,6 +7,12 @@ import isLogout from "../IsLogout/IsLogout";
 
 function NavbarHeader() {
   const user = userDetailsStore((state) => state.user);
+  const logout = userDetailsStore((state) => state.logout);
+
+  function isLogout() {
+    logout();
+    toast.success("Logged out successfully");
+  }
 
   return (
     <div className="navbar">

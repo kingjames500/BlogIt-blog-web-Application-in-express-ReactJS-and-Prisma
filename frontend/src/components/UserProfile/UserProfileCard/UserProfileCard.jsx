@@ -7,6 +7,7 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import Errors from "../../Errors/Errors";
 import { Toaster, toast } from "sonner";
 import { useParams } from "react-router-dom";
+import CardProfile from "./CardProfile";
 
 function UserProfileCard() {
   const [avatarPreview, setAvatarPreview] = useState(null);
@@ -45,8 +46,32 @@ function UserProfileCard() {
     mutate(userProfile);
   };
 
+  //  function for fetching user profile
+  const { data: profile, isLoading } = useQuery({
+    queryKey: ["userProfile", userId],
+    queryFn: async () => {
+      const response = await fetch(`${apiUrl}/user/profile`, {
+        credentials: "include",
+      });
+
+      if (response.ok === false) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      return data;
+    },
+  });
+
   // mutate function for creating user profile
-  const { mutate, isLoading, isError, error } = useMutation({
+  const {
+    mutate,
+    isLoading: isSubmitting,
+    isError,
+    error,
+  } = useMutation({
     mutationFn: async (useProfileObj) => {
       const response = await fetch(`${apiUrl}/user/create/profile`, {
         method: "POST",
@@ -95,6 +120,10 @@ function UserProfileCard() {
         linkText="there was a problem while creating your profile"
       />
     );
+  }
+
+  if (profile) {
+    return <CardProfile user={profile} />;
   }
 
   return (
