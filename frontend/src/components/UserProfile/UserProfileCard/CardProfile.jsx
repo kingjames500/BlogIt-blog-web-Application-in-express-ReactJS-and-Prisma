@@ -25,22 +25,28 @@ function CardProfile({ user }) {
       />
       <div className="profile-details">
         <h2 className="profile-name">
-          <FontAwesomeIcon icon={faUser} className="icon" /> {user.user.username}
+          <FontAwesomeIcon icon={faUser} className="icon" />{" "}
+          {user.user.username}
         </h2>
         <p className="profile-role">
-          <FontAwesomeIcon icon={faBriefcase} className="icon" /> {user.occupation || "Role"}
+          <FontAwesomeIcon icon={faBriefcase} className="icon" />{" "}
+          {user.occupation || "Role"}
         </p>
         <p className="profile-bio">
-          <FontAwesomeIcon icon={faInfoCircle} className="icon" /> {user.bio || "User bio goes here..."}
+          <FontAwesomeIcon icon={faInfoCircle} className="icon" />{" "}
+          {user.bio || "User bio goes here..."}
         </p>
         <p className="profile-phone">
-          <FontAwesomeIcon icon={faPhone} className="icon" /> {user.phoneNumber || "Phone number"}
+          <FontAwesomeIcon icon={faPhone} className="icon" />{" "}
+          {user.phoneNumber || "Phone number"}
         </p>
         <p className="profile-status">
-          <FontAwesomeIcon icon={faInfoCircle} className="icon" /> {user.status || "Status"}
+          <FontAwesomeIcon icon={faInfoCircle} className="icon" />{" "}
+          {user.status || "Status"}
         </p>
         <p className="profile-email">
-          <FontAwesomeIcon icon={faEnvelope} className="icon" /> {user.secondaryEmail}
+          <FontAwesomeIcon icon={faEnvelope} className="icon" />{" "}
+          {user.secondaryEmail}
         </p>
         <button
           className="update-button"

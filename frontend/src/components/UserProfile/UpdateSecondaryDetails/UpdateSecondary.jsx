@@ -56,6 +56,7 @@ function UpdateSecondary() {
       setOccupation(data.occupation);
       setSecondaryEmail(data.secondaryEmail);
     },
+    cacheTime: Infinity,
   });
 
   return (

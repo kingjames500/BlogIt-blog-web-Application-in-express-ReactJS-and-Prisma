@@ -116,6 +116,7 @@ function BlogsFeed() {
       const data = await response.json();
       return data;
     },
+    cacheTime: Infinity,
   });
 
   // function for updating a blog so that it can be reloaded

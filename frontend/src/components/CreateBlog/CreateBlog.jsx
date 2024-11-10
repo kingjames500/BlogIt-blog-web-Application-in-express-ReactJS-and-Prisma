@@ -13,9 +13,7 @@ import apiUrl from "../../utils/apiUrl";
 import { Toaster, toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import imageUploadToCloudinary from "../../utils/ImageUpload/imageUploadToCloudinary";
-import { ProgressSpinner } from "primereact/progressspinner";
 import Errors from "../Errors/Errors";
-
 
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
@@ -69,14 +67,6 @@ const CreateBlog = () => {
     mutate(newBlog);
   };
 
-  if (isLoading) {
-    return (
-      <div className="loading-container">
-        <ProgressSpinner />
-      </div>
-    );
-  }
-
   if (isError) {
     return (
       <Errors
@@ -85,7 +75,6 @@ const CreateBlog = () => {
         linkText="navigate back to create blog"
       />
     );
-    
   }
 
   const handleImageUpload = async (files) => {
@@ -155,7 +144,20 @@ const CreateBlog = () => {
           <Button
             type="submit"
             disabled={isLoading}
-            label={isLoading ? "Creating..." : "Create Blog"}
+            label={
+              isLoading ? (
+                <div className="loader-container">
+                  <ProgressSpinner
+                    style={{ width: "50px", height: "3rem" }}
+                    strokeWidth="10"
+                    fill="var(--surface-ground)"
+                    animationDuration=".4s"
+                  />
+                </div>
+              ) : (
+                "Create Blog"
+              )
+            }
             onClick={handleSubmit}
             icon="pi pi-check"
             className="p-button p-mt-2"

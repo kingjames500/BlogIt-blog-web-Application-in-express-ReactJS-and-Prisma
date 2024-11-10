@@ -71,7 +71,7 @@ function LoginForm() {
   return (
     <div className="login-form-container">
       <form className="login-form">
-        <Toaster position="top-centre" richColors expand={true} />
+        <Toaster position="top-centre" richColors />
         <div className="login-title">
           <Title subTitle="login to BlogIt" />
         </div>

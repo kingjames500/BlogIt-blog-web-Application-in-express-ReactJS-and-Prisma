@@ -22,6 +22,7 @@ function BlogListing() {
       const data = await response.json();
       return data;
     },
+    cacheTime: Infinity,
   });
 
   if (isLoading) {
