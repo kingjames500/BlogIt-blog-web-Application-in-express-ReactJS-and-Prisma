@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import "./CardPreview.css";
 
 function CardPreview({ user }) {

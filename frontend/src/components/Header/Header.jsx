@@ -1,30 +1,18 @@
-import { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
 import "./Header.css";
 import headerLogo from "../../assets/images/header-image.png";
-import userDetailsStore from "../../Store/userDetailsStore";
-import { toast } from "sonner";
+import userDetailsStore from "../../Store/userDetailsStore.js";
+import { Toaster, toast } from "sonner";
+import { Link } from "react-router-dom";
+import isLogout from "../IsLogout/IsLogout";
 
 function NavbarHeader() {
   const user = userDetailsStore((state) => state.user);
-  const logout = userDetailsStore((state) => state.logout);
-
-  const redirect = useNavigate();
-  const handleLogout = (e) => {
-    e.preventDefault();
-    logout();
-    toast.success("Logged out successfully!", {
-      duration: 3000,
-    });
-    setTimeout(() => {
-      redirect("/");
-    }, 100);
-  };
 
   return (
     <div className="navbar">
+      <Toaster richColors position="top-center" />
       <div className="logo-container">
-        <img src={headerLogo} alt="logo" className="logo" />
+        <img src={headerLogo} alt="logo" className="logo" />{" "}
         <span className="site-name">BlogIt</span>
       </div>
       <nav>
@@ -57,7 +45,7 @@ function NavbarHeader() {
                 </Link>
               </li>
               <li className="navigation-list-items">
-                <Link to="/" className="links" onClick={handleLogout}>
+                <Link to="/" className="links" onClick={isLogout}>
                   Logout
                 </Link>
               </li>

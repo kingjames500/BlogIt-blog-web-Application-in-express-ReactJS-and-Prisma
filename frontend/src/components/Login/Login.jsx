@@ -6,7 +6,7 @@ import apiUrl from "../../utils/apiUrl";
 import Title from "../Title/Title";
 import "./Login.css";
 import { ProgressSpinner } from "primereact/progressspinner";
-import { toast } from "sonner";
+import { Toaster, toast } from "sonner";
 
 function RegisterLink() {
   return (
@@ -71,6 +71,7 @@ function LoginForm() {
   return (
     <div className="login-form-container">
       <form className="login-form">
+        <Toaster position="top-centre" richColors expand={true} />
         <div className="login-title">
           <Title subTitle="login to BlogIt" />
         </div>

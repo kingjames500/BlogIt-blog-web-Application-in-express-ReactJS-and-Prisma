@@ -66,7 +66,7 @@ function PersonalInfoUpdate() {
   return (
     <div className="profile-form-container">
       <form className="profile-form">
-        <Toaster richColors position="top-center" expand={true} />
+        <Toaster position="top-centre" richColors expand />
         <div className="profile-title">
           <Title mainTitle="update personal info" />
         </div>

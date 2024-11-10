@@ -24,15 +24,3 @@ body {
   font-size: 1.6rem;
   font-family: "Ubuntu", sans-serif;
 }
-
-/* Ensures the app takes the full viewport height */
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* The content will expand to take available space */
-.content {
-  flex: 1;
-}
