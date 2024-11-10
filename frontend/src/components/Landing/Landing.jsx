@@ -7,10 +7,10 @@ function CallToAction() {
   return (
     <div className="cta-container">
       {" "}
-      <Link to="/signup" className="cta-btn primary">
+      <Link to="/create-blog" className="cta-btn primary">
         Start Writing
       </Link>
-      <Link to="/signup" className="cta-btn secondary">
+      <Link to="/blogs" className="cta-btn secondary">
         Explore Stories
       </Link>
     </div>

@@ -1,24 +1,27 @@
+import React from "react";
 import "./Header.css";
 import headerLogo from "../../assets/images/header-image.png";
 import userDetailsStore from "../../Store/userDetailsStore.js";
 import { Toaster, toast } from "sonner";
 import { Link } from "react-router-dom";
-import isLogout from "../IsLogout/IsLogout";
+import { useMutation } from "react-query";
 
 function NavbarHeader() {
-  const user = userDetailsStore((state) => state.user);
   const logout = userDetailsStore((state) => state.logout);
+  const user = userDetailsStore((state) => state.user);
 
   function isLogout() {
     logout();
-    toast.success("Logged out successfully");
+    toast.success("Logged out successfully", {
+      duration: 3000,
+    });
   }
 
   return (
     <div className="navbar">
       <Toaster richColors position="top-center" />
       <div className="logo-container">
-        <img src={headerLogo} alt="logo" className="logo" />{" "}
+        <img src={headerLogo} alt="logo" className="logo" />
         <span className="site-name">BlogIt</span>
       </div>
       <nav>
@@ -28,11 +31,12 @@ function NavbarHeader() {
               Home
             </Link>
           </li>
+
           {user ? (
             <>
               <li className="navigation-list-items">
                 <Link className="links" to="/blogs">
-                  blogs
+                  Blogs
                 </Link>
               </li>
               <li className="navigation-list-items">
@@ -42,12 +46,12 @@ function NavbarHeader() {
               </li>
               <li className="navigation-list-items">
                 <Link className="links" to="/blogs-feed">
-                  feed
+                  Feed
                 </Link>
               </li>
               <li className="navigation-list-items">
                 <Link className="links" to="/user/profile">
-                  profile
+                  {`${user.firstName}  ${user.lastName}`}
                 </Link>
               </li>
               <li className="navigation-list-items">
@@ -55,16 +59,11 @@ function NavbarHeader() {
                   Logout
                 </Link>
               </li>
-              <li className="navigation-list-items">
-                <Link to="/" className="links">
-                  {user.username}
-                </Link>
-              </li>
             </>
           ) : (
             <li className="navigation-list-items">
               <Link className="links" to="/login">
-                login
+                Login
               </Link>
             </li>
           )}

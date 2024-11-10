@@ -14,6 +14,8 @@ import UpdateSecondaryPage from "./Pages/UpdateSecondaryPage/UpdateSecondaryPage
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
+import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
+
 const client = new QueryClient();
 
 function App() {
@@ -22,16 +24,18 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/blogs" element={<BlogListingPage />} />
+            <Route path="/blogs-feed" element={<BlogsFeedPage />} />
+            <Route path="/blog/:id" element={<FullBlogPage />} />
+            <Route path="/create-blog" element={<CreateBlogPage />} />
+            <Route path="/update-blog/:blogId" element={<UpdateBlogPage />} />
+            <Route path="/user/profile" element={<ProfilePage />} />
+            <Route path="/profile/edit/:id" element={<UpdateSecondaryPage />} />
+          </Route>
           <Route path="/" element={<Landingpage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<Loginpage />} />
-          <Route path="/blogs" element={<BlogListingPage />} />
-          <Route path="/blogs-feed" element={<BlogsFeedPage />} />
-          <Route path="/blog/:id" element={<FullBlogPage />} />
-          <Route path="/create-blog" element={<CreateBlogPage />} />
-          <Route path="/update-blog/:blogId" element={<UpdateBlogPage />} />
-          <Route path="/user/profile" element={<ProfilePage />} />
-          <Route path="/profile/edit/:id" element={<UpdateSecondaryPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
