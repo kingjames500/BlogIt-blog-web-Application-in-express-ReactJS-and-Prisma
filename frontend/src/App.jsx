@@ -10,6 +10,7 @@ import CreateBlogPage from "./Pages/CreateBlogPage/CreateBlogPage";
 import FullBlogPage from "./Pages/FullBlogPage/FullBlogPage";
 import UpdateBlogPage from "./Pages/UpdateBlogPage/UpdateBlogPage";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
+import UpdateSecondaryPage from "./Pages/UpdateSecondaryPage/UpdateSecondaryPage";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/create-blog" element={<CreateBlogPage />} />
           <Route path="/update-blog/:blogId" element={<UpdateBlogPage />} />
           <Route path="/user/profile" element={<ProfilePage />} />
+          <Route path="/profile/edit/:id" element={<UpdateSecondaryPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -23,7 +23,7 @@ function CardProfile({ user }) {
         <p className="profile-email">{user.secondaryEmail}</p>
         <button
           className="update-button"
-          onClick={() => navigate("/profile/edit")}
+          onClick={() => navigate(`/profile/edit/${user.id}`)}
         >
           Update
         </button>
