@@ -21,7 +21,7 @@ function Hero() {
   return (
     <div className="hero">
       <div className="hero-text">
-        <h1 className="hero-heading">welcome to blogIt</h1>
+        <h1 className="hero-heading">express your ideas </h1>
         <p className="hero-paragraph">
           Express yourself, connect with like-minded individuals, and let your
           voice be heard on our dynamic platform.
