@@ -13,6 +13,9 @@ import apiUrl from "../../utils/apiUrl";
 import { Toaster, toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import imageUploadToCloudinary from "../../utils/ImageUpload/imageUploadToCloudinary";
+import { ProgressSpinner } from "primereact/progressspinner";
+import Errors from "../Errors/Errors";
+
 
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
@@ -63,27 +66,31 @@ const CreateBlog = () => {
       content,
       imageUrl,
     };
-    console.log(newBlog);
     mutate(newBlog);
   };
 
   if (isLoading) {
     return (
-      <div
-        className="p-d-flex p-jc-center p-ai-center"
-        style={{ height: "100vh" }}
-      >
-        <div className="p-d-flex p-flex-column p-jc-center p-ai-center">
-          <h1>Creating Blog...</h1>
-        </div>
+      <div className="loading-container">
+        <ProgressSpinner />
       </div>
     );
+  }
+
+  if (isError) {
+    return (
+      <Errors
+        error="there was a problem while creating the blog"
+        linkPath="/create-blog"
+        linkText="navigate back to create blog"
+      />
+    );
+    
   }
 
   const handleImageUpload = async (files) => {
     if (files && files[0]) {
       const url = await imageUploadToCloudinary(files[0]);
-      console.log("image url", url); // Upload image and get URL
       if (url) {
         setImageUrl(url); // Set the URL in state if upload is successful
       }
