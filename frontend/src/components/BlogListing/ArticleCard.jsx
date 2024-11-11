@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import formatDateToReadable from "../../utils/eventsDate";
+import getExcerpt from "../../Helpers/HelpersFunction";
+import limitWords from "../../Helpers/HelpersFunction";
 
 function ArticleCard({
   authorAvatar,
@@ -11,16 +13,8 @@ function ArticleCard({
   updatedAt,
   id,
 }) {
-  // Function to limit the excerpt to 20 words on the blog listing page
-  const getExcerpt = (text, wordLimit) => {
-    const words = text.split(" ");
-    if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(" ") + "...";
-    }
-    return text;
-  };
-  const limitedExcerpt = getExcerpt(blogExcept, 20);
-  const limitedTitle = getExcerpt(blogTitle, 9);
+  const limitedExcerpt = limitWords(blogExcept, 20);
+  const limitedTitle = limitWords(blogTitle, 9);
   const formattedCreatedAt = formatDateToReadable(createdAt);
   const formattedUpdatedAt = formatDateToReadable(updatedAt);
 

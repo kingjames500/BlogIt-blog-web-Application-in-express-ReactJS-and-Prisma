@@ -10,6 +10,7 @@ import {
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import "./CardPreview.css";
+import formatDateToReadable from "../../../utils/eventsDate";
 
 function CardProfile({ user }) {
   const navigate = useNavigate();
@@ -48,6 +49,10 @@ function CardProfile({ user }) {
           <FontAwesomeIcon icon={faEnvelope} className="icon" />{" "}
           {user.secondaryEmail}
         </p>
+        <p className="profile-date">
+          <strong>Member Since:</strong> {formatDateToReadable(user.createdAt)}
+        </p>
+
         <button
           className="update-button"
           onClick={() => navigate(`/profile/edit/${user.id}`)}
