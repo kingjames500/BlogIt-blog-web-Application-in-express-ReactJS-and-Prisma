@@ -1,4 +1,5 @@
 import { PrismaClient } from "../../imports/imports.js";
+import { checkIfEmailExists } from "../../middleware/utils/userExists.js";
 
 const client = new PrismaClient();
 
@@ -7,6 +8,13 @@ const updateUserInformation = async (req, res) => {
   try {
     const { email, firstName, lastName, username } = req.body;
     const userId = req.userId;
+
+    const checkEmailTakenCheck = await checkIfEmailExists(email);
+
+    if (checkEmailTakenCheck) {
+      res.status(400).json({ message: "Email already exists" });
+      return;
+    }
 
     const updatedUser = await client.user.update({
       where: { id: userId },
@@ -51,6 +59,13 @@ const updateUserProfileData = async (req, res) => {
       res
         .status(400)
         .json({ message: "there was an arror while trying to update" });
+      return;
+    }
+
+    const secondaryEmailExists = await checkIfEmailExists(secondaryEmail);
+
+    if (secondaryEmailExists) {
+      res.status(400).json({ message: "Email already exists" });
       return;
     }
 

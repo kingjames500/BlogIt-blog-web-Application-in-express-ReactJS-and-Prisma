@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 
 const client = new PrismaClient();
 
+// Find user by email or username
 const findUserByEmailOrUsername = async (emailOrUsername) => {
   return await client.user.findFirst({
     where: {
@@ -15,4 +16,9 @@ const comparePasswords = async (inputPassword, storedPassword) => {
   return await bcrypt.compare(inputPassword, storedPassword);
 };
 
-export { findUserByEmailOrUsername, comparePasswords };
+// Check if email exists
+const checkIfEmailExists = async (email) => {
+  return await client.user.findFirst({ where: { email: email } });
+};
+
+export { findUserByEmailOrUsername, comparePasswords, checkIfEmailExists };
