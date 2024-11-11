@@ -6,7 +6,7 @@ import apiUrl from "../../../utils/apiUrl";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Errors from "../../Errors/Errors";
 import { Toaster, toast } from "sonner";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import CardProfile from "./CardProfile";
 
 function UserProfileCard() {
@@ -16,6 +16,7 @@ function UserProfileCard() {
   const [status, setStatus] = useState("");
   const [occupation, setOccupation] = useState("");
   const [secondaryEmail, setSecondaryEmail] = useState("");
+  const redirect = useNavigate();
 
   const { userId } = useParams();
 
@@ -25,6 +26,7 @@ function UserProfileCard() {
       const reader = new FileReader();
       reader.onloadend = async () => {
         const imageUrl = await imageUploadToCloudinary(file);
+        console.log(imageUrl);
         setAvatarPreview(imageUrl);
       };
       reader.readAsDataURL(file);
@@ -93,8 +95,12 @@ function UserProfileCard() {
 
     onSuccess: () => {
       toast.success("Profile created successfully", {
-        duration: 5000,
+        duration: 2500,
       });
+
+      setTimeout(() => {
+        redirect(`/user/profile`);
+      }, 2500);
     },
 
     onError: (error) => {
@@ -115,7 +121,7 @@ function UserProfileCard() {
     return (
       <Errors
         error={error.message}
-        linkPath="/login"
+        linkPath="/user/profile"
         linkText="there was a problem while creating your profile"
       />
     );
@@ -202,10 +208,10 @@ function UserProfileCard() {
           <button
             type="submit"
             className="save-button"
-            disabled={isLoading}
+            disabled={isSubmitting}
             onClick={handleSubmit}
           >
-            {isLoading ? "Creating profile..." : "Create Profile"}
+            {isSubmitting ? "Creating profile..." : "Create Profile"}
           </button>
         </form>
       </div>

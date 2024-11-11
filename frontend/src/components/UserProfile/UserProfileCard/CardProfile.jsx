@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./CardPreview.css";
 import formatDateToReadable from "../../../utils/eventsDate";
+import defaultAvatar from "../../../assets/images/default user avatar.png";
 
 function CardProfile({ user }) {
   const navigate = useNavigate();
@@ -20,8 +21,8 @@ function CardProfile({ user }) {
   return (
     <div className="profile-review-card">
       <img
-        src={user.profileImageUrl}
-        alt="User Avatar"
+        src={user.profileImageUrl || defaultAvatar}
+        alt={`${user.user.username} avatar`}
         className="profile-avatar"
       />
       <div className="profile-details">
