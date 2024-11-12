@@ -4,10 +4,10 @@ const createBlogValidation = (req, res, next) => {
     res.status(400).json({ message: "Title is required" });
     return;
   }
-  if (!imageUrl) {
-    res.status(400).json({ message: "Image URL is required" });
-    return;
-  }
+  // if (!imageUrl) {
+  //   res.status(400).json({ message: "Image URL is required" });
+  //   return;
+  // }
   if (!excerpt) {
     res.status(400).json({ message: "Excerpt is required" });
     return;

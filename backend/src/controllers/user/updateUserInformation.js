@@ -1,5 +1,4 @@
 import { PrismaClient } from "../../imports/imports.js";
-import { checkIfEmailExists } from "../../middleware/utils/userExists.js";
 
 const client = new PrismaClient();
 

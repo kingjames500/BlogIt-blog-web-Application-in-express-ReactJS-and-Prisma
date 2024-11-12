@@ -22,6 +22,8 @@ import {
   updateUserInformation,
 } from "../controllers/user/updateUserInformation.js";
 
+import userProfileValidation from "../middleware/utils/UserProfileValidation.js";
+
 export {
   PrismaClient,
   Router,
@@ -42,4 +44,5 @@ export {
   updateUserProfileData,
   fetchUserProfile,
   updateUserProfile,
+  userProfileValidation,
 };

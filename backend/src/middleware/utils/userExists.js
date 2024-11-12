@@ -16,9 +16,4 @@ const comparePasswords = async (inputPassword, storedPassword) => {
   return await bcrypt.compare(inputPassword, storedPassword);
 };
 
-// Check if email exists
-const checkIfEmailExists = async (email) => {
-  return await client.user.findFirst({ where: { email: email } });
-};
-
-export { findUserByEmailOrUsername, comparePasswords, checkIfEmailExists };
+export { findUserByEmailOrUsername, comparePasswords };

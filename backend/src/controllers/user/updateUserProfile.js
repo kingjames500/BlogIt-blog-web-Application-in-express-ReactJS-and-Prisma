@@ -1,19 +1,13 @@
 import { PrismaClient } from "../../imports/imports.js";
-import { checkIfEmailExists } from "../../middleware/utils/userExists.js";
 
 const client = new PrismaClient();
 
 async function updateUserProfile(req, res) {
   const profileId = req.params.profileId;
+  const userId = req.userId;
 
   const { bio, status, occupation, secondaryEmail, phoneNumber } = req.body;
   try {
-    const secondaryEmailExists = await checkIfEmailExists(secondaryEmail);
-
-    if (secondaryEmailExists) {
-      res.status(400).json({ message: "Secondary Email already exists" });
-      return;
-    }
     await client.profile.update({
       where: {
         id: profileId,

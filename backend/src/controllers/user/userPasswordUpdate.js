@@ -1,9 +1,6 @@
 import { PrismaClient } from "../../imports/imports.js";
 import bcrypt from "bcryptjs";
-import {
-  comparePasswords,
-  checkIfEmailExists,
-} from "../../middleware/utils/userExists.js";
+import { comparePasswords } from "../../middleware/utils/userExists.js";
 
 const client = new PrismaClient();
 
@@ -11,8 +8,6 @@ const userPasswordUpdate = async (req, res) => {
   try {
     const userId = req.userId;
     const { previousPassword, newPassword } = req.body;
-
-    const user = await checkIfEmailExists(userId);
 
     if (!user) {
       res
