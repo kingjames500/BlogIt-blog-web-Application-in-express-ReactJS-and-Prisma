@@ -9,7 +9,7 @@ async function userProfileValidation(req, res, next) {
     where: { secondaryEmail: secondaryEmail },
   });
   if (secondaryEmailExists) {
-    res.status(400).json({ message: "Email already exists" });
+    res.status(500).json({ message: "email already exists" });
     return;
   }
 

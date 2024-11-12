@@ -5,19 +5,28 @@ const client = new PrismaClient();
 async function updateUserProfile(req, res) {
   const profileId = req.params.profileId;
   const userId = req.userId;
+  console.log(userId);
 
-  const { bio, status, occupation, secondaryEmail, phoneNumber } = req.body;
+  const {
+    bio,
+    status,
+    occupation,
+    secondaryEmail,
+    phoneNumber,
+    profileImageUrl,
+  } = req.body;
   try {
     await client.profile.update({
       where: {
         id: profileId,
       },
       data: {
-        bio: bio,
-        status: status,
-        occupation: occupation,
-        secondaryEmail: secondaryEmail,
-        phoneNumber: phoneNumber,
+        bio,
+        status,
+        occupation,
+        secondaryEmail,
+        phoneNumber,
+        profileImageUrl,
       },
     });
 
