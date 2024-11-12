@@ -26,6 +26,6 @@ router.patch("/user/update/profile", verifyAuthToken, updateUserProfileData);
 
 router.get("/user/profile", verifyAuthToken, fetchUserProfile);
 
-router.put("/user/profile/:profileId", verifyAuthToken, updateUserProfile);
+router.put("/user/profile/:profileId", verifyAuthToken,userProfileValidation, updateUserProfile);
 
 export default router;
