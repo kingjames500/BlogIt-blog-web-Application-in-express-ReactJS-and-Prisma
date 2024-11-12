@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import imageUploadToCloudinary from "../../../utils/ImageUpload/imageUploadToCloudinary";
 import { useMutation, useQuery } from "react-query";
 import { Toaster, toast } from "sonner";
@@ -9,7 +9,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Title from "../../Title/Title";
 
 function UpdateSecondary() {
-  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [profileImageUrl, setAvatarPreview] = useState("");
   const [phoneNumber, setPhone] = useState("");
   const [bio, setBio] = useState("");
   const [status, setStatus] = useState("");
@@ -17,6 +17,7 @@ function UpdateSecondary() {
   const [secondaryEmail, setSecondaryEmail] = useState("");
 
   const { profileId } = useParams();
+
   const redirect = useNavigate();
 
   const handleAvatarChange = async (e) => {
@@ -25,6 +26,7 @@ function UpdateSecondary() {
       const reader = new FileReader();
       reader.onloadend = async () => {
         const imageUrl = await imageUploadToCloudinary(file);
+        console.log("cloudinary image url", imageUrl);
         setAvatarPreview(imageUrl);
       };
       reader.readAsDataURL(file);
@@ -32,7 +34,7 @@ function UpdateSecondary() {
   };
 
   //  function for fetching user profile
-  const { isLoading } = useQuery({
+  const { refetch } = useQuery({
     queryKey: ["userProfile", profileId],
     queryFn: async () => {
       const response = await fetch(`${apiUrl}/user/profile`, {
@@ -45,7 +47,6 @@ function UpdateSecondary() {
       }
 
       const data = await response.json();
-      console.log(data);
       return data;
     },
 
@@ -59,16 +60,75 @@ function UpdateSecondary() {
     cacheTime: Infinity,
   });
 
+  useEffect(() => {
+    refetch();
+  }, [profileId]);
+
+  const { mutate, isLoading: isUpdating } = useMutation({
+    mutationFn: async function (useSecondaryObj) {
+      const response = await fetch(`${apiUrl}/user/profile/${profileId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(useSecondaryObj),
+        credentials: "include",
+      });
+
+      if (response.ok === false) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+
+      const data = await response.json();
+      return data;
+    },
+
+    onSuccess: () => {
+      toast.success("User Profile Update Successfully!", {
+        duration: 3000,
+      });
+
+      setTimeout(() => {
+        redirect("/user/profile");
+      }, 1000);
+    },
+
+    onError: (error) => {
+      toast.error(error.message, {
+        duration: 2000,
+      });
+    },
+  });
+
+  function handleUpdateUserProfile(e) {
+    e.preventDefault();
+
+    const updatedUser = {
+      profileImageUrl,
+      bio,
+      phoneNumber,
+      secondaryEmail,
+      status,
+      occupation,
+    };
+
+    console.log("update button click", profileImageUrl);
+
+    mutate(updatedUser);
+  }
+
   return (
     <div className="profile-container">
+      <Toaster position="top-center" richColors />
       <div className="profile-card">
         <Title
           mainTitle="Update Profile"
           subTitle="You can change you details on this page"
         />
-        {avatarPreview && (
+        {profileImageUrl && (
           <img
-            src={avatarPreview}
+            src={profileImageUrl}
             alt="Avatar Preview"
             className="avatar-preview"
           />
@@ -135,8 +195,13 @@ function UpdateSecondary() {
             />
           </div>
 
-          <button type="submit" className="save-button" disabled={isLoading}>
-            {isLoading ? "Updating profile..." : "Update Profile"}
+          <button
+            type="submit"
+            className="save-button"
+            disabled={isUpdating}
+            onClick={handleUpdateUserProfile}
+          >
+            {isUpdating ? "Updating profile..." : "Update Profile"}
           </button>
         </form>
       </div>

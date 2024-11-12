@@ -38,9 +38,7 @@ function FullBlogFeed() {
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
-  const avatar = data.user.profile.profileImageUrl
-    ? data.user.profile.profileImageUrl
-    : defaultUserAvatar;
+  const avatar = data?.user?.profile?.profileImageUrl || defaultUserAvatar;
   return (
     <div className="full-blog-container">
       <div className="blog-header"></div>

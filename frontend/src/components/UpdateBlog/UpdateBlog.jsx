@@ -135,7 +135,7 @@ function UpdateBlog() {
   }
   return (
     <div className="form-container">
-      <Card title="Create a Blog Post" className="p-shadow-3 custom-card">
+      <Card title="Update this blog" className="p-shadow-3 custom-card">
         <Toaster position="top-center" richColors expand={true} />
         <form>
           <div className="p-field">

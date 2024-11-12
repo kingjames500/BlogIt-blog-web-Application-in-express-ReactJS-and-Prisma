@@ -82,7 +82,6 @@ function UserProfileCard() {
         body: JSON.stringify(useProfileObj),
         credentials: "include",
       });
-      console.log(response);
 
       if (response.ok === false) {
         const error = await response.json();
@@ -90,6 +89,7 @@ function UserProfileCard() {
       }
 
       const data = await response.json();
+
       return data;
     },
 
@@ -99,7 +99,7 @@ function UserProfileCard() {
       });
 
       setTimeout(() => {
-        redirect(`/user/profile`);
+        redirect("/user/profile");
       }, 2500);
     },
 

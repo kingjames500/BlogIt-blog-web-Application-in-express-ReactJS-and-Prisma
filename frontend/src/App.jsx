@@ -31,7 +31,10 @@ function App() {
             <Route path="/create-blog" element={<CreateBlogPage />} />
             <Route path="/update-blog/:blogId" element={<UpdateBlogPage />} />
             <Route path="/user/profile" element={<ProfilePage />} />
-            <Route path="/profile/edit/:id" element={<UpdateSecondaryPage />} />
+            <Route
+              path="/profile/edit/:profileId"
+              element={<UpdateSecondaryPage />}
+            />
           </Route>
           <Route path="/" element={<Landingpage />} />
           <Route path="/signup" element={<SignupPage />} />

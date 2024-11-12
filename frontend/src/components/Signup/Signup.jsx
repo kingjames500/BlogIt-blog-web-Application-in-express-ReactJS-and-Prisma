@@ -25,10 +25,10 @@ function SignupForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [formError, setFormError] = useState(null);
+
   const redirect = useNavigate();
 
-  const { mutate, isLoading, isError, error } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: async function (newUser) {
       const response = await fetch(`${apiUrl}/auth/register`, {
         method: "POST",
@@ -41,7 +41,6 @@ function SignupForm() {
         const error = await response.json();
         throw new Error(error.message);
       }
-      console.log(response);
     },
     onSuccess: () => {
       toast.success("User registered successfully", {
