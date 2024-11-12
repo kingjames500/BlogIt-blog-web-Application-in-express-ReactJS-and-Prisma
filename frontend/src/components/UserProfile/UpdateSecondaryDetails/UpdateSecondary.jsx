@@ -26,7 +26,7 @@ function UpdateSecondary() {
       const reader = new FileReader();
       reader.onloadend = async () => {
         const imageUrl = await imageUploadToCloudinary(file);
-        console.log("cloudinary image url", imageUrl);
+  
         setAvatarPreview(imageUrl);
       };
       reader.readAsDataURL(file);
@@ -113,7 +113,7 @@ function UpdateSecondary() {
       occupation,
     };
 
-    console.log("update button click", profileImageUrl);
+
 
     mutate(updatedUser);
   }
